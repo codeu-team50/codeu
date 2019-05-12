@@ -4,6 +4,7 @@ about: Template for a task, not bugs or feature requests.
 title: "[TASK] ..."
 labels: ''
 assignees: ''
+projects: ''
 
 ---
 
