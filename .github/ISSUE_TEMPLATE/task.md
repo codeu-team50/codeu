@@ -2,7 +2,7 @@
 name: Task
 about: Template for a task, not bugs or feature requests.
 title: "[TASK] ..."
-labels: ''
+labels: help wanted
 assignees: ''
 
 ---
