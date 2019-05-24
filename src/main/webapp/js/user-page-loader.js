@@ -33,6 +33,7 @@ function setPageTitle() {
  * Shows the message form if the user is logged in and viewing their own page.
  */
 function showMessageFormIfViewingSelf() {
+
   fetch('/login-status')
       .then((response) => {
         return response.json();
@@ -42,6 +43,7 @@ function showMessageFormIfViewingSelf() {
             loginStatus.username == parameterUsername) {
           const messageForm = document.getElementById('message-form');
           messageForm.classList.remove('hidden');
+          document.getElementById('about-me-form').classList.remove('hidden');
         }
       });
 }
@@ -90,9 +92,27 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
+
+function fetchAboutMe(){
+  const url = '/about?user=' + parameterUsername;
+  fetch(url).then((response) => {
+    return response.text();
+  }).then((aboutMe) => {
+    const aboutMeContainer = document.getElementById('about-me-container');
+    if(aboutMe == ''){
+      aboutMe = 'This user has not entered any information yet.';
+    }
+
+    aboutMeContainer.innerHTML = aboutMe;
+
+  });
+}
+
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();
+  fetchAboutMe();
 }
