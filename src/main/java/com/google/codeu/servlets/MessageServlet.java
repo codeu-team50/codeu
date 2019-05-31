@@ -16,6 +16,7 @@
 
 package com.google.codeu.servlets;
 
+import com.github.rjeschke.txtmark.Processor;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
@@ -27,8 +28,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.kefirsf.bb.BBProcessorFactory;
+import org.kefirsf.bb.TextProcessor;
 
 /** Handles fetching and saving {@link Message} instances. */
 @WebServlet("/messages")
@@ -77,6 +82,13 @@ public class MessageServlet extends HttpServlet {
 
     String user = userService.getCurrentUser().getEmail();
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+
+    // BBCode markup language to HTML
+    TextProcessor processor = BBProcessorFactory.getInstance().create();
+    text = processor.process(text);
+
+    // Java markdown processor
+    text = Processor.process(text);
 
     Message message = new Message(user, text);
     datastore.storeMessage(message);
