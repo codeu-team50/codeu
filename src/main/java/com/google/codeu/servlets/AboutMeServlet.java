@@ -7,12 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import com.github.rjeschke.txtmark.Processor;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.User;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+import org.kefirsf.bb.BBProcessorFactory;
+import org.kefirsf.bb.TextProcessor;
 
 /**
  * Handles fetching and saving user data.
@@ -65,6 +69,13 @@ public class AboutMeServlet extends HttpServlet {
 
         String userEmail = userService.getCurrentUser().getEmail();
         String aboutMe = Jsoup.clean(request.getParameter("about-me"), Whitelist.none());
+
+        // BBCode markup language to HTML
+        TextProcessor processor = BBProcessorFactory.getInstance().create();
+        aboutMe = processor.process(aboutMe);
+
+        // Java markdown processor
+        aboutMe = Processor.process(aboutMe);
 
         User user = new User(userEmail, aboutMe);
         datastore.storeUser(user);
