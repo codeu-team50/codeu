@@ -23,10 +23,19 @@ limitations under the License.
     <script src="/js/navigation-loader.js"></script>
   </head>
   <body onload="addLoginOrLogoutLinkToNavigation();">
+    <!--#include virtual="/navbar.html" -->
+     <!-- <div w3-include-html="navbar.html"></div> -->
+     <!-- <<div class="navbar">
+       <object type="text/html" data="navbar.html"></object>
+     </div> -->
     <nav>
       <ul id="navigation">
         <li><a href="/">Home</a></li>
         <li><a href="/aboutus.html">About Our Team</a></li>
+        <li><a href="/community.html">Community</a></li>
+        <li><a href="/feed.html">Public Feed</a></li>
+        <li><a href="/stats.html">Stats</a></li>
+
       </ul>
     </nav>
     <h1>CodeU Starter Project</h1>
