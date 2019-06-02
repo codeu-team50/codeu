@@ -79,16 +79,22 @@ public class MessageServlet extends HttpServlet {
       response.sendRedirect("/index.html");
       return;
     }
-
+    //Code commented for images part 1
     String user = userService.getCurrentUser().getEmail();
+    // String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
+    //Message message = new Message(user, textWithImagesReplaced);
     // BBCode markup language to HTML
     TextProcessor processor = BBProcessorFactory.getInstance().create();
     text = processor.process(text);
 
     // Java markdown processor
     text = Processor.process(text);
+    //Converting image url to image tag
+    String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
+    String replacement = "<img src=\"$1\" />";
+    text = text.replaceAll(regex, replacement);
 
     Message message = new Message(user, text);
     datastore.storeMessage(message);
