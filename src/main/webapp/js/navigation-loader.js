@@ -62,7 +62,44 @@ function createListItem(childElement) {
  */
 function createLink(url, text) {
   const linkElement = document.createElement('a');
+  linkElement.className += "btn btn-outline-success my-2 my-sm-0";
   linkElement.appendChild(document.createTextNode(text));
   linkElement.href = url;
   return linkElement;
+}
+
+function loadNavigation(){
+  loadContent();
+  addLoginOrLogoutLinkToNavigation();
+
+}
+
+function loadContent() {
+  const navigationbar= document.getElementById('navigation-bar');
+  const content=` <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item">
+                    <a class="nav-link" href="/aboutus.html">About Our Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/community.html">Community</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/feed.html">Public Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/stats.html">Stats</a>
+                </li>
+            </ul>
+        </div>
+    </nav>`;
+  navigationbar.innerHTML += content;
+
+
 }

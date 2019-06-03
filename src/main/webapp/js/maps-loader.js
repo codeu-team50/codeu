@@ -8,3 +8,10 @@ function createMap(){
         zoom: 16
       });
     }
+
+
+
+function buildUI(){
+    loadNavigation();
+    createMap();
+}

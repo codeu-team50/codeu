@@ -20,5 +20,6 @@ function buildStatElement(statString){
 
 // Fetch data and populate the UI of the page.
 function buildUI(){
- fetchStats();
+    loadNavigation();
+    fetchStats();
 }

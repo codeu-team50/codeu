@@ -82,6 +82,9 @@ public class MessageServlet extends HttpServlet {
     //Code commented for images part 1
     String user = userService.getCurrentUser().getEmail();
     // String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
+
+    System.out.println(request.getParameter("text"));
+
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
     //Message message = new Message(user, textWithImagesReplaced);
