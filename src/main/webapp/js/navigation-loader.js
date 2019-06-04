@@ -19,28 +19,28 @@
  * already logged in.
  */
 function addLoginOrLogoutLinkToNavigation() {
-  const navigationElement = document.getElementById('navigation');
-  if (!navigationElement) {
-    console.warn('Navigation element not found!');
-    return;
-  }
+    const navigationElement = document.getElementById('navigation');
+    if (!navigationElement) {
+        console.warn('Navigation element not found!');
+        return;
+    }
 
-  fetch('/login-status')
-      .then((response) => {
-        return response.json();
-      })
-      .then((loginStatus) => {
-        if (loginStatus.isLoggedIn) {
-          navigationElement.appendChild(createListItem(createLink(
-              '/user-page.html?user=' + loginStatus.username, 'Your Page')));
+    fetch('/login-status')
+        .then((response) => {
+            return response.json();
+        })
+        .then((loginStatus) => {
+            if (loginStatus.isLoggedIn) {
+                navigationElement.appendChild(createListItem(createLink(
+                    '/user-page.html?user=' + loginStatus.username, 'Your Page')));
 
-          navigationElement.appendChild(
-              createListItem(createLink('/logout', 'Logout')));
-        } else {
-          navigationElement.appendChild(
-              createListItem(createLink('/login', 'Login')));
-        }
-      });
+                navigationElement.appendChild(
+                    createListItem(createLink('/logout', 'Logout')));
+            } else {
+                navigationElement.appendChild(
+                    createListItem(createLink('/login', 'Login')));
+            }
+        });
 }
 
 /**
@@ -49,9 +49,9 @@ function addLoginOrLogoutLinkToNavigation() {
  * @return {Element} li element
  */
 function createListItem(childElement) {
-  const listItemElement = document.createElement('li');
-  listItemElement.appendChild(childElement);
-  return listItemElement;
+    const listItemElement = document.createElement('li');
+    listItemElement.appendChild(childElement);
+    return listItemElement;
 }
 
 /**
@@ -61,22 +61,22 @@ function createListItem(childElement) {
  * @return {Element} Anchor element
  */
 function createLink(url, text) {
-  const linkElement = document.createElement('a');
-  linkElement.className += "btn btn-outline-success my-2 my-sm-0";
-  linkElement.appendChild(document.createTextNode(text));
-  linkElement.href = url;
-  return linkElement;
+    const linkElement = document.createElement('a');
+    linkElement.className += "btn btn-outline-success my-2 my-sm-0";
+    linkElement.appendChild(document.createTextNode(text));
+    linkElement.href = url;
+    return linkElement;
 }
 
-function loadNavigation(){
-  loadContent();
-  addLoginOrLogoutLinkToNavigation();
+function loadNavigation() {
+    loadContent();
+    addLoginOrLogoutLinkToNavigation();
 
 }
 
 function loadContent() {
-  const navigationbar= document.getElementById('navigation-bar');
-  const content=` <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    const navigationbar = document.getElementById('navigation-bar');
+    const content = ` <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,7 +99,6 @@ function loadContent() {
             </ul>
         </div>
     </nav>`;
-  navigationbar.innerHTML += content;
-
+    navigationbar.innerHTML += content;
 
 }

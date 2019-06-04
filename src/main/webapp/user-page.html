@@ -42,16 +42,18 @@ limitations under the License.
 <header id="navigation-bar">
 </header>
 <div class="container">
-    <h1 id="page-title">User Page</h1>
+
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
-    <div class="row">
+    <div class="row alert alert-secondary">
 
         <div class="col-8">
-            <hr style="margin-top: 10px">
-            <div class="container" id="about-me-container">
-            Loading...
-        </div>
+            <h1>Profile</h1>
+            <hr>
+                <h4 id="page-title">User Page</h4>
+                <div class="container" id="about-me-container">
+                    Loading...
+                </div>
             <hr>
         </div>
         <div class="col-4"><div >
@@ -68,7 +70,7 @@ limitations under the License.
     <hr/>
     <div class="row justify-content-center">
         <div class="col-md-8 gedf-main" id="message-container">
-            <div class="card gedf-card" id="message-form"  class="hidden">
+            <div class="card gedf-card hidden" id="message-form" >
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -81,7 +83,7 @@ limitations under the License.
                     </ul>
                 </div>
                 <div class="card-body">
-                    <form action="/messages" method="POST">
+                    <form action="/messages" id="msg-form" method="POST" enctype='multipart/form-data'>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                             <div class="form-group">
@@ -93,7 +95,7 @@ limitations under the License.
                         <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
                             <div class="form-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <input type="file" class="custom-file-input" name="image" id="customFile">
                                     <label class="custom-file-label" for="customFile">Upload image</label>
                                 </div>
                             </div>
