@@ -2,29 +2,31 @@
 
 <html>
 <head>
-<title>Message Feed</title>
+    <title>Message Feed</title>
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user-page.css">
+    <link rel="stylesheet" href="/css/message-post.css">
 
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/user-page.css">
+    <!-- Core plugin JavaScript-->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap/bootstrap.js"></script>
+    <script src="/js/navigation-loader.js"></script>
+
+    <!-- Custom scripts -->
     <script src="/js/feed-page-loader.js"></script>
 </head>
 
 <body onload="buildUI()">
-  <nav>
-    <ul id="navigation">
-      <li><a href="/">Home</a></li>
-      <li><a href="/aboutus.html">About Our Team</a></li>
-      <li><a href="/community.html">Community</a></li>
-      <li><a href="/feed.html">Public Feed</a></li>
-      <li><a href="/stats.html">Stats</a></li>
-
-    </ul>
-  </nav>
- <div id="content">
-  <h1>Message Feed</h1>
-  <hr/>
-  <div id="message-container">Loading...</div>
- </div>
+<header id="navigation-bar">
+</header>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 gedf-main" id="message-container">
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
