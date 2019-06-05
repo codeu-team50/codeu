@@ -96,6 +96,9 @@ function loadContent() {
                 <li class="nav-item">
                     <a class="nav-link" href="/stats.html">Stats</a>
                 </li>
+                <li class="nav-item">
+                     <a class="nav-link" href="/maps.html">Maps</a>
+                 </li>
             </ul>
         </div>
     </nav>`;
