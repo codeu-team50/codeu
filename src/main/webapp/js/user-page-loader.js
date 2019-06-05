@@ -105,6 +105,11 @@ function buildMessageDiv(message) {
                         Quos in maiores, soluta doloremque molestiae reiciendis libero expedita assumenda fuga quae.
                         Consectetur id molestias itaque facere? Hic!
                     </p>
+                    
+                    <div>
+                    <img src="" id="message-imageUrl" class="hidden">
+                    </div>
+                    
                     <div id="message-hashtags">
                         <span class="badge badge-primary">JavaScript</span>
                         <span class="badge badge-primary">Android</span>
@@ -134,6 +139,14 @@ function buildMessageDiv(message) {
 
   message_time=messageDiv.querySelector("#message-time");
   message_time.innerHTML=new Date(message.timestamp);
+
+  if(message.imageUrl!=null){
+    message_imageUrl=messageDiv.querySelector("#message-imageUrl");
+    message_imageUrl.src=message.imageUrl;
+    message_imageUrl.classList.remove('hidden');
+
+  }
+
   return messageDiv;
 }
 
@@ -154,10 +167,23 @@ function fetchAboutMe(){
 }
 
 
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('msg-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
+      });
+}
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   loadNavigation();
   setPageTitle();
+  fetchBlobstoreUrlAndShowForm();
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
