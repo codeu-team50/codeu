@@ -16,6 +16,10 @@ function createMap(){
         content: 'This is Stan, the T-Rex statue.'
       });
       trexInfoWindow.open(map, trexMarker);
+      
+      trexMarker.addListener('click', function() {
+  		trexInfoWindow.open(map, trexMarker);
+	  });
     }
 
 
