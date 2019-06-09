@@ -12,6 +12,14 @@ function createMap(){
         map: map,
         title: 'Stan the T-Rex'
       });
+      var trexInfoWindow = new google.maps.InfoWindow({
+        content: 'This is Stan, the T-Rex statue.'
+      });
+      trexInfoWindow.open(map, trexMarker);
+      
+      trexMarker.addListener('click', function() {
+  		trexInfoWindow.open(map, trexMarker);
+	  });
     }
 
 
