@@ -14,6 +14,7 @@ function fetchMessages(){
     }
 
     messages.forEach((message) => {
+        console.log(message);
      const messageDiv = buildMessageDiv(message);
      messageContainer.appendChild(messageDiv);
     });
@@ -65,7 +66,7 @@ function buildMessageDiv(message) {
                 </div>
 
                 <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                    <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
                 </div>`;
 
 
