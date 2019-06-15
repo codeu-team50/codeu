@@ -148,7 +148,7 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
-
+/** Fetches About me details from /about endpoint */
 function fetchAboutMe(){
   const url = '/about?user=' + parameterUsername;
   fetch(url).then((response) => {
@@ -165,8 +165,9 @@ function fetchAboutMe(){
 }
 
 
-function fetchBlobstoreUrlAndShowForm() {
-  fetch('/blobstore-upload-url')
+/** Fetches BlobstoreUrl for the Message Form. */
+function fetchBlobstoreUrlAndShowMessageForm() {
+  fetch('/blobstore-upload-url?type=message')
       .then((response) => {
         return response.text();
       })
@@ -177,11 +178,24 @@ function fetchBlobstoreUrlAndShowForm() {
       });
 }
 
+/** Fetches BlobstoreUrl for the About Me Form. */
+function fetchBlobstoreUrlAndShowAboutmeForm() {
+  fetch('/blobstore-upload-url?type=aboutme')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('about-me-form');
+        messageForm.action = imageUploadUrl;
+      });
+}
+
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   loadNavigation();
   setPageTitle();
-  fetchBlobstoreUrlAndShowForm();
+  fetchBlobstoreUrlAndShowMessageForm();
   showMessageFormIfViewingSelf();
   fetchMessages();
   fetchAboutMe();
