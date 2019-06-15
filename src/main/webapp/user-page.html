@@ -21,6 +21,9 @@ limitations under the License.
     <meta charset="UTF-8">
 
     <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/css/fontawesome/css/brands.min.css">
+    <link rel="stylesheet" href="/css/fontawesome/css/solid.min.css">
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
@@ -45,73 +48,82 @@ limitations under the License.
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
-    <div class="row alert alert-secondary">
-
-        <div class="col-8">
-            <h1>Profile</h1>
-            <hr>
-                <h4 id="page-title">User Page</h4>
+    <h1>Profile</h1>
+    <div class="justify-content-center text-center">
+        <form action="/about" onsubmit="return addForm();" id="about-me-form" method="POST" enctype='multipart/form-data'>
+            <div style="margin-bottom: 5px">
+                <img class="preview-img"  id="about-me-dp" src="https://picsum.photos/150/150"
+                     alt="Preview Image"/>
+            </div>
+            <div id="about-me-div">
+                <hr>
+                <h3 id="about-me-nickname">Nick Name</h3>
+                <h6 id="page-title">User Page</h6>
                 <div class="container" id="about-me-container">
                     Loading...
                 </div>
-            <hr>
-        </div>
-        <div class="col-4"><div >
-            <form action="/about" method="POST" id="about-me-form" class="hidden">
-                <textarea name="about-me" class="form-control" placeholder="about me" rows=4 required></textarea>
-                <br/>
-                <input class="btn btn-primary btn-sm" type="submit" value="Submit">
-            </form>
-        </div>
-        </div>
-
+            </div>
+            <input class="btn btn-primary btn-sm hidden" id="about-me-submit"  itemid="about-me-submit" type="submit" value="Edit">
+        </form>
+        <hr>
     </div>
+
 
     <hr/>
     <div class="row justify-content-center">
+
         <div class="col-md-8 gedf-main" id="message-container">
-            <div class="card gedf-card hidden" id="message-form" >
+            <!-- Message posting form. -->
+            <div class="card gedf-card hidden" id="message-form">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Tell your
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
+                               aria-controls="posts" aria-selected="true">Tell your
                                 stories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images"
+                               aria-selected="false" href="#images">Images</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <form action="/messages" id="msg-form" method="POST" enctype='multipart/form-data'>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                            <div class="form-group">
-                                <label class="sr-only" for="message">post</label>
-                                <textarea class="form-control" id="message" name="text" rows="3" placeholder="What are you thinking?"></textarea>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="image" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Upload image</label>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel"
+                                 aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <label class="sr-only" for="message">post</label>
+                                    <textarea class="form-control" id="message" name="text" rows="3"
+                                              placeholder="What are you thinking?"></textarea>
                                 </div>
+
                             </div>
-                            <div class="py-4"></div>
+                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Upload image</label>
+                                    </div>
+                                </div>
+                                <div class="py-4"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="btn-toolbar justify-content-between">
-                        <div class="btn-group">
-                            <button type="submit" class="btn btn-primary">share</button>
+                        <div class="btn-toolbar justify-content-between">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary">share</button>
+                            </div>
                         </div>
-                    </div>
                     </form>
                 </div>
             </div>
 
+            <!-- Posts snippets will be loaded if there are any posts. -->
+
         </div>
+
+
     </div>
 </div>
 
