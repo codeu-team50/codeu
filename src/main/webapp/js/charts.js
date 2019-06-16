@@ -26,3 +26,7 @@ function drawChart(){
   var chart = new google.visualization.PieChart(document.getElementById('book_chart'));
   chart.draw(travel_data, chart_options);
 }
+
+function buildUI() { 
+  loadNavigation();
+  }
