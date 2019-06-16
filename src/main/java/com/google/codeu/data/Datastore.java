@@ -115,6 +115,8 @@ public class Datastore {
         Entity userEntity = new Entity("User", user.getEmail());
         userEntity.setProperty("email", user.getEmail());
         userEntity.setProperty("aboutMe", user.getAboutMe());
+        userEntity.setProperty("imageUrl", user.getImageUrl());
+        userEntity.setProperty("nickName", user.getNickName());
         datastore.put(userEntity);
     }
 
@@ -133,9 +135,9 @@ public class Datastore {
         }
 
         String aboutMe = (String) userEntity.getProperty("aboutMe");
-        User user = new User(email, aboutMe);
-
-        return user;
+        String imageUrl = (String) userEntity.getProperty("imageUrl");
+        String nickName = (String) userEntity.getProperty("nickName");
+        return new User(email, aboutMe,nickName,imageUrl);
     }
 
     /* Fetch all messages*/
