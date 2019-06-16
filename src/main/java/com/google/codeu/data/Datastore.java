@@ -125,13 +125,13 @@ public class Datastore {
      * null if no matching User was found.
      */
     public User getUser(String email) {
-
         Query query = new Query("User")
                 .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
         PreparedQuery results = datastore.prepare(query);
         Entity userEntity = results.asSingleEntity();
+
         if (userEntity == null) {
-            return null;
+            return new User(null, null,null,null);
         }
 
         String aboutMe = (String) userEntity.getProperty("aboutMe");

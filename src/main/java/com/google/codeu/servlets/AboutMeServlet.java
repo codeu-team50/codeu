@@ -56,13 +56,10 @@ public class AboutMeServlet extends HttpServlet {
 
         User userData = datastore.getUser(user);
 
-        if (userData == null || userData.getAboutMe() == null) {
-            return;
-        }
-
         //Load the user details and send it as the json
         Gson gson = new Gson();
         String json = gson.toJson(userData);
+        System.out.println(json);
         response.getOutputStream().println(json);
     }
 
