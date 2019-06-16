@@ -19,6 +19,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.User;
+import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 import org.kefirsf.bb.BBProcessorFactory;
@@ -59,7 +60,10 @@ public class AboutMeServlet extends HttpServlet {
             return;
         }
 
-        response.getOutputStream().println(userData.getAboutMe());
+        //Load the user details and send it as the json
+        Gson gson = new Gson();
+        String json = gson.toJson(userData);
+        response.getOutputStream().println(json);
     }
 
     @Override
@@ -88,7 +92,6 @@ public class AboutMeServlet extends HttpServlet {
         // Get the URL of the image that the user uploaded to Blobstore.
         String imageUrl = getUploadedFileUrl(request, "image");
 
-        System.out.println("imageUrl "+imageUrl);
         if (imageUrl != null) {
             User user = new User(userEmail, aboutMe, nickName, imageUrl);
             datastore.storeUser(user);
