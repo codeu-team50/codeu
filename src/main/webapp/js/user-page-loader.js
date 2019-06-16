@@ -41,9 +41,12 @@ function showMessageFormIfViewingSelf() {
       .then((loginStatus) => {
         if (loginStatus.isLoggedIn &&
             loginStatus.username == parameterUsername) {
-          const messageForm = document.getElementById('message-form');
-          messageForm.classList.remove('hidden');
-          document.getElementById('about-me-form').classList.remove('hidden');
+
+            const messageForm = document.getElementById('message-form');
+            messageForm.classList.remove('hidden');
+
+            const aboutMeForm = document.getElementById('about-me-submit')
+            aboutMeForm.classList.remove('hidden');
         }
       });
 }
@@ -120,7 +123,7 @@ function buildMessageDiv(message) {
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                    <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
                 </div>`;
 
 
@@ -152,19 +155,17 @@ function buildMessageDiv(message) {
 function fetchAboutMe() {
     const url = '/about?user=' + parameterUsername;
     fetch(url).then((response) => {
-        return response.json();;
+        return response.json();
     }).then((aboutMeJson) => {
 
         //getting the html elements
         var aboutMeContainer = document.getElementById('about-me-container');
         var about_me_nickname = document.getElementById('about-me-nickname');
-        var page_title = document.getElementById('page-title');
         var about_me_dp = document.getElementById('about-me-dp');
 
         //getting the variables from the json
         var aboutMe  = aboutMeJson.aboutMe;
         var nickName  = aboutMeJson.nickName;
-        var email  = aboutMeJson.email;
         var imageUrl  = aboutMeJson.imageUrl;
 
         //Sample aboutMe if the aboutMe is not there.
@@ -183,7 +184,6 @@ function fetchAboutMe() {
         //setting the variables to html elements.
         aboutMeContainer.innerHTML = aboutMe;
         about_me_nickname.innerHTML = nickName;
-        page_title.innerHTML = email;
         about_me_dp.src = imageUrl;
 
     });
