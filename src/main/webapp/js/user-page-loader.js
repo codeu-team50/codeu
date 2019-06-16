@@ -149,19 +149,44 @@ function buildMessageDiv(message) {
 }
 
 /** Fetches About me details from /about endpoint */
-function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
+function fetchAboutMe() {
+    const url = '/about?user=' + parameterUsername;
+    fetch(url).then((response) => {
+        return response.json();;
+    }).then((aboutMeJson) => {
 
-    aboutMeContainer.innerHTML = aboutMe;
+        //getting the html elements
+        var aboutMeContainer = document.getElementById('about-me-container');
+        var about_me_nickname = document.getElementById('about-me-nickname');
+        var page_title = document.getElementById('page-title');
+        var about_me_dp = document.getElementById('about-me-dp');
 
-  });
+        //getting the variables from the json
+        var aboutMe  = aboutMeJson.aboutMe;
+        var nickName  = aboutMeJson.nickName;
+        var email  = aboutMeJson.email;
+        var imageUrl  = aboutMeJson.imageUrl;
+
+        //Sample aboutMe if the aboutMe is not there.
+        if (aboutMeJson.aboutMe == undefined) {
+            aboutMe = 'This user has not entered any information yet.';
+        }
+        //Sample nickName if the nickName is not there.
+        if (aboutMeJson.nickName == undefined) {
+            nickName = "I'm lazy to add nick name. :)";
+        }
+        //Sample Image url if the image is not there.
+        if (aboutMeJson.imageUrl == undefined) {
+            imageUrl = 'https://www.iei.unach.mx/images/imagenes/profile.png';
+        }
+
+        //setting the variables to html elements.
+        aboutMeContainer.innerHTML = aboutMe;
+        about_me_nickname.innerHTML = nickName;
+        page_title.innerHTML = email;
+        about_me_dp.src = imageUrl;
+
+    });
 }
 
 
