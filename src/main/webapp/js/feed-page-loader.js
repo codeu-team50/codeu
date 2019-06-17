@@ -66,6 +66,7 @@ function buildMessageDiv(message) {
 
                 <div class="card-footer">
                     <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
+                    <a id="message-sentiment" style="color:#E91E63" href="#" class="fab fa-gratipay">></a>
                 </div>`;
 
 
@@ -82,6 +83,10 @@ function buildMessageDiv(message) {
 
     message_time=messageDiv.querySelector("#message-time");
     message_time.innerHTML=new Date(message.timestamp);
+
+    message_sentiment= messageDiv.querySelector("#message-sentiment");
+    message_sentiment.innerHTML= ' 0.2';
+
     return messageDiv;
 }
 
