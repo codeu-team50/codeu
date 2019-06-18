@@ -38,7 +38,11 @@ public class User {
         return aboutMe;
     }
 
-    public String getImageUrl() { return imageUrl; }
+    public String getImageUrl() { 
+        return imageUrl; 
+    }
 
-    public String getNickName() { return nickName; }
+    public String getNickName() { 
+        return nickName; 
+    }
 }

@@ -119,13 +119,12 @@ function buildMessageDiv(message) {
                         <span class="badge badge-primary">PHP</span>
                         <span class="badge badge-primary">Node.js</span>
                         <span class="badge badge-primary">Ruby</span>
-                        <span class="badge badge-primary">Paython</span>
+                        <span class="badge badge-primary">Python</span>
                     </div>
-                    <div id="message-sentiment"></div>
                 </div>
                 <div class="card-footer">
                     <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
-                    <a id="message-sentiment" style="color:#E91E63" href="#" class="fab fa-gratipay"></a>
+                    <a id="message-score" style="color:#E91E63" href="#" class="fab fa-gratipay"></a>
                 </div>`;
 
 
@@ -142,6 +141,10 @@ function buildMessageDiv(message) {
 
   message_time=messageDiv.querySelector("#message-time");
   message_time.innerHTML=new Date(message.timestamp);
+  
+  message_score= messageDiv.querySelector("#message-score");
+  message_score.innerHTML=message.score.toFixed(2);
+
 
   if(message.imageUrl!=null){
     message_imageUrl=messageDiv.querySelector("#message-imageUrl");
@@ -149,9 +152,6 @@ function buildMessageDiv(message) {
     message_imageUrl.classList.remove('hidden');
 
   }
-  message_sentiment= messageDiv.querySelector("#message-sentiment");
-  message_sentiment.innerHTML= ' 0.2';
-
   return messageDiv;
 }
 

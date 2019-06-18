@@ -51,6 +51,7 @@ public class Datastore {
         messageEntity.setProperty("text", message.getText());
         messageEntity.setProperty("imageUrl", message.getImageUrl());
         messageEntity.setProperty("timestamp", message.getTimestamp());
+        messageEntity.setProperty("score", message.getScore());
         datastore.put(messageEntity);
     }
 
@@ -76,7 +77,8 @@ public class Datastore {
                 String text = (String) entity.getProperty("text");
                 String imageUrl = (String) entity.getProperty("imageUrl");
                 long timestamp = (long) entity.getProperty("timestamp");
-                Message message = new Message(id, user, text, imageUrl, timestamp);
+                double score= (double) entity.getProperty("score");
+                Message message = new Message(id, user, text, imageUrl, timestamp, score);
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -155,7 +157,8 @@ public class Datastore {
                 String text = (String) entity.getProperty("text");
                 long timestamp = (long) entity.getProperty("timestamp");
                 String imageUrl = (String) entity.getProperty("imageUrl");
-                Message message = new Message(id, user, text, imageUrl, timestamp);
+                double score= (double) entity.getProperty("score");
+                Message message = new Message(id, user, text, imageUrl, timestamp, score);
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");

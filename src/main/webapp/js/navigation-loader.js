@@ -102,9 +102,6 @@ function loadContent() {
                  <li class="nav-item">
                       <a class="nav-link" href="/charts.html">Charts</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/sentiments.html">Sentiments</a>
-                  </li>
             </ul>
         </div>
     </nav>`;
