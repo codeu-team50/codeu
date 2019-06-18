@@ -31,6 +31,15 @@ public class Message {
     private double score;
 
 
+
+    public Message(UUID id, String user, String text, double score) {
+        this.id=id;
+        this.user = user;
+        this.text = text;
+        this.timestamp = System.currentTimeMillis();
+        this.score=score;
+    }
+
     public Message(String user, String text, double score) {
         this.id=UUID.randomUUID();
         this.user = user;
@@ -39,44 +48,21 @@ public class Message {
         this.score=score;
     }
 
-    /**
-     * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
-     * random ID and uses the current system time for the creation time.
-     */
-    public Message(String user, String text) {
-        this(UUID.randomUUID(), user, text, System.currentTimeMillis());
+
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Message(UUID id, String user, String text, long timestamp) {
-        this.id = id;
-        this.user = user;
-        this.text = text;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
-    public Message(UUID id, String user, String text, String imageUrl, long timestamp) {
-        this.id = id;
-        this.user = user;
-        this.text = text;
-        this.imageUrl = imageUrl;
-        this.timestamp = timestamp;
-    }
-    public Message(UUID id, String user, String text, String imageUrl, long timestamp, double score) {
-        this.id = id;
-        this.user = user;
-        this.text = text;
-        this.imageUrl = imageUrl;
-        this.timestamp = timestamp;
+    public void setScore(double score) {
         this.score = score;
-    }
-
-    public Message(String user, String text, String imageUrl, double score) {
-        this.id=UUID.randomUUID();
-        this.user = user;
-        this.text = text;
-        this.imageUrl = imageUrl;
-        this.timestamp = System.currentTimeMillis();
-        this.score=score;
     }
 
     public UUID getId() {
@@ -98,6 +84,7 @@ public class Message {
     public long getTimestamp() {
         return timestamp;
     }
+
     public double getScore(){
         return score;
     }

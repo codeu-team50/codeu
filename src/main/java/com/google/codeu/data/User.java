@@ -14,21 +14,7 @@ public class User {
         this.aboutMe = aboutMe;
     }
 
-    // constructor to handle when only email, aboutMe, nickName
-    public User(String email, String aboutMe,String nickName) {
-        this.email = email;
-        this.aboutMe = aboutMe;
-        this.nickName = nickName;
-    }
-
-    // constructor to handle when only email, aboutMe, nickName, imageUrl
-    public User(String email, String aboutMe,String nickName,String imageUrl) {
-        this.email = email;
-        this.aboutMe = aboutMe;
-        this.nickName = nickName;
-        this.imageUrl = imageUrl;
-    }
-
+    //Getters
 
     public String getEmail(){
         return email;
@@ -45,4 +31,11 @@ public class User {
     public String getNickName() { 
         return nickName; 
     }
+
+
+    //Setters
+    public void setNickName(String nickName) { this.nickName = nickName; }
+
+    public void setImageUrl(String imageUrl) {  this.imageUrl = imageUrl; }
+
 }

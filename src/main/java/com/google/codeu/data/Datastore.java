@@ -62,32 +62,11 @@ public class Datastore {
      * message. List is sorted by time descending.
      */
     public List<Message> getMessages(String user) {
-        List<Message> messages = new ArrayList<>();
-
         Query query =
                 new Query("Message")
                         .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
                         .addSort("timestamp", SortDirection.DESCENDING);
-        PreparedQuery results = datastore.prepare(query);
-
-        for (Entity entity : results.asIterable()) {
-            try {
-                String idString = entity.getKey().getName();
-                UUID id = UUID.fromString(idString);
-                String text = (String) entity.getProperty("text");
-                String imageUrl = (String) entity.getProperty("imageUrl");
-                long timestamp = (long) entity.getProperty("timestamp");
-                double score= (double) entity.getProperty("score");
-                Message message = new Message(id, user, text, imageUrl, timestamp, score);
-                messages.add(message);
-            } catch (Exception e) {
-                System.err.println("Error reading message.");
-                System.err.println(entity.toString());
-                e.printStackTrace();
-            }
-        }
-
-        return messages;
+        return getMessagesForQuery(query);
     }
 
     /**
@@ -133,20 +112,31 @@ public class Datastore {
         Entity userEntity = results.asSingleEntity();
 
         if (userEntity == null) {
-            return new User(null, null,null,null);
+            return new User(null, null);
         }
 
         String aboutMe = (String) userEntity.getProperty("aboutMe");
-        String imageUrl = (String) userEntity.getProperty("imageUrl");
         String nickName = (String) userEntity.getProperty("nickName");
-        return new User(email, aboutMe,nickName,imageUrl);
+        User user =new User(email, aboutMe);
+        user.setNickName(nickName);
+        
+        if (userEntity.hasProperty("imageUrl")){
+            String imageUrl = (String) userEntity.getProperty("imageUrl");
+            user.setImageUrl(imageUrl);
+        }
+        return user;
     }
 
     /* Fetch all messages*/
     public List<Message> getAllMessages() {
-        List<Message> messages = new ArrayList<>();
         Query query = new Query("Message")
                 .addSort("timestamp", SortDirection.DESCENDING);
+        return getMessagesForQuery(query);
+    }
+
+
+    private  List<Message> getMessagesForQuery(Query query){
+        List<Message> messages = new ArrayList<>();
         PreparedQuery results = datastore.prepare(query);
 
         for (Entity entity : results.asIterable()) {
@@ -156,9 +146,16 @@ public class Datastore {
                 String user = (String) entity.getProperty("user");
                 String text = (String) entity.getProperty("text");
                 long timestamp = (long) entity.getProperty("timestamp");
-                String imageUrl = (String) entity.getProperty("imageUrl");
-                double score= (double) entity.getProperty("score");
-                Message message = new Message(id, user, text, imageUrl, timestamp, score);
+                double score = (double) entity.getProperty("score");
+
+                Message message = new Message(id, user, text, score);
+                message.setTimestamp(timestamp);
+
+                if (entity.hasProperty("imageUrl")) {
+                    String imageUrl = (String) entity.getProperty("imageUrl");
+                    message.setImageUrl(imageUrl);
+                }
+
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
