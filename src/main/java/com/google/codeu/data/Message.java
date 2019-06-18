@@ -28,7 +28,16 @@ public class Message {
     private String text;
     private String imageUrl;
     private long timestamp;
+    private double score;
 
+
+    public Message(String user, String text, double score) {
+        this.id=UUID.randomUUID();
+        this.user = user;
+        this.text = text;
+        this.timestamp = System.currentTimeMillis();
+        this.score=score;
+    }
 
     /**
      * Constructs a new {@link Message} posted by {@code user} with {@code text} content. Generates a
@@ -52,13 +61,22 @@ public class Message {
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
     }
+    public Message(UUID id, String user, String text, String imageUrl, long timestamp, double score) {
+        this.id = id;
+        this.user = user;
+        this.text = text;
+        this.imageUrl = imageUrl;
+        this.timestamp = timestamp;
+        this.score = score;
+    }
 
-    public Message(String user, String text, String imageUrl) {
+    public Message(String user, String text, String imageUrl, double score) {
         this.id=UUID.randomUUID();
         this.user = user;
         this.text = text;
         this.imageUrl = imageUrl;
         this.timestamp = System.currentTimeMillis();
+        this.score=score;
     }
 
     public UUID getId() {
@@ -73,9 +91,14 @@ public class Message {
         return text;
     }
 
-    public String getImageUrl() {return imageUrl;}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
     public long getTimestamp() {
         return timestamp;
+    }
+    public double getScore(){
+        return score;
     }
 }

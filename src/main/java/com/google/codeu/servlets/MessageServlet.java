@@ -26,6 +26,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
+import com.google.cloud.language.v1.Document; //sentiment
+import com.google.cloud.language.v1.LanguageServiceClient; //sentiment
+import com.google.cloud.language.v1.Sentiment;  //sentiment
 
 import java.io.IOException;
 import java.util.List;
@@ -105,15 +108,23 @@ public class MessageServlet extends HttpServlet {
         String replacement = "<img src=\"$1\" />";
         text = text.replaceAll(regex, replacement);
 
+        //Getting the sentiment scores
+        Document doc = Document.newBuilder()
+                .setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+        LanguageServiceClient languageService = LanguageServiceClient.create();
+        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+        double score = sentiment.getScore();
+        languageService.close();
+
         // Get the URL of the image that the user uploaded to Blobstore.
         String imageUrl = getUploadedFileUrl(request, "image");
         System.out.println("imageUrl "+imageUrl);
         if(imageUrl!=null) {
-            Message message = new Message(user, text,imageUrl);
+            Message message = new Message(user, text,imageUrl,score);
             datastore.storeMessage(message);
         }
         else {
-            Message message = new Message(user, text);
+            Message message = new Message(user,text,score);
             datastore.storeMessage(message);
         }
         response.sendRedirect("/user-page.html?user=" + user);
