@@ -22,9 +22,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
-import com.google.cloud.language.v1.Document; //sentiment
-import com.google.cloud.language.v1.LanguageServiceClient; //sentiment
-import com.google.cloud.language.v1.Sentiment;  //sentiment
+import com.google.cloud.language.v1.Document; 
+import com.google.cloud.language.v1.LanguageServiceClient; 
+import com.google.cloud.language.v1.Sentiment;  
 
 import java.io.IOException;
 import java.util.List;
