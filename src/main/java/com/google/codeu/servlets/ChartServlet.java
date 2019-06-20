@@ -12,7 +12,7 @@ import com.google.gson.JsonArray;
 import java.util.Scanner;
 
 
-@WebServlet("/bookchart")
+@WebServlet("/hobbieschart")
 public class ChartServlet extends HttpServlet {
 
 
