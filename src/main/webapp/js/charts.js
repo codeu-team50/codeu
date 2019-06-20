@@ -24,8 +24,11 @@ function drawChart(){
                     height: 400
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById('book_chart'));
-  chart.draw(travel_data, chart_options);
+  var barChart = new google.visualization.BarChart(document.getElementById('travel_barchart'));
+  barChart.draw(travel_data, chart_options);
+
+  var pieChart = new google.visualization.PieChart(document.getElementById('travel_piechart'));
+  pieChart.draw(travel_data, chart_options);
 }
 
 function buildUI() { 
