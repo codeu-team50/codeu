@@ -1,4 +1,4 @@
-function buildMessageDiv(message) {
+function buildMessageDiv(message,user) {
     var messageDiv = document.createElement('div');
     messageDiv.className += "card gedf-card";
 
@@ -6,11 +6,11 @@ function buildMessageDiv(message) {
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="mr-2">
-                                <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                                <img class="rounded-circle" width="45" id="message-dp" src="https://picsum.photos/50/50" alt="">
                             </div>
                             <div class="ml-2">
-                                <div class="h5 m-0" id="message-username">@LeeCross</div>
-                                <div class="h7 text-muted" id="message-nickname">Miracles Lee Cross</div>
+                                <div class="h5 m-0" id="message-nickname">Miracles Lee Cross</div>
+                                <div class="h7 text-muted" id="message-username">@LeeCross</div>
                             </div>
                         </div>
                         <div>
@@ -47,6 +47,7 @@ function buildMessageDiv(message) {
                 </div>`;
 
 
+
     messageDiv.innerHTML+= htmlString.trim();
 
     message_text= messageDiv.querySelector("#message-text");
@@ -56,13 +57,24 @@ function buildMessageDiv(message) {
     message_username.innerHTML=message.user;
 
     message_nickname=messageDiv.querySelector("#message-nickname");
-    message_nickname.innerHTML=message.user;
+    message_nickname.innerHTML=user.nickName;
 
     message_time=messageDiv.querySelector("#message-time");
     message_time.innerHTML=new Date(message.timestamp);
 
     message_score= messageDiv.querySelector("#message-score");
     message_score.innerHTML=message.score.toFixed(2);
+
+    message_dp= messageDiv.querySelector("#message-dp");
+    user_imageUrl=user.imageUrl;
+
+
+    //Sample Image url if the image is not there.
+    if (user_imageUrl == undefined) {
+        user_imageUrl = 'https://www.iei.unach.mx/images/imagenes/profile.png';
+    }
+
+    message_dp.src=user_imageUrl;
 
     if(message.imageUrl!=null){
         message_imageUrl=messageDiv.querySelector("#message-imageUrl");
