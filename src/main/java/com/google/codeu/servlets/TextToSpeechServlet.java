@@ -1,5 +1,5 @@
 /** Takes requests that contain text and responds with an MP3 file speaking that text. */
-@WebServlet("/a11y/tts")
+@WebServlet("/texttospeech")
 public class TextToSpeech extends HttpServlet {
 
  private TextToSpeechClient ttsClient;
@@ -20,11 +20,24 @@ public class TextToSpeech extends HttpServlet {
    SynthesisInput input = SynthesisInput.newBuilder()
            .setText(text)
            .build();
+   // Build the voice request, select the language code ("en-US") and the ssml voice gender
+    VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
+         .setLanguageCode("en-US")
+         // Try experimenting with the different voices
+         .setSsmlGender(SsmlVoiceGender.NEUTRAL)
+         .build();
 
-   // TODO(you): Fill in the gap here!
-   // PS: consider the basic example and the Text-to-Speech documentation!
+     // Select the type of audio file you want returned
+    AudioConfig audioConfig = AudioConfig.newBuilder()
+         .setAudioEncoding(AudioEncoding.MP3)
+         .build();
 
-   response.setContentType("audio/mpeg"); 
+     // Perform the text-to-speech request on the text input with the selected voice parameters and
+     // audio file type
+    SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice,
+         audioConfig);
+
+    response.setContentType("audio/mpeg"); 
 
    try (
      ServletOutputStream output = response.getOutputStream();
