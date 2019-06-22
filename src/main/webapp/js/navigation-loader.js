@@ -96,8 +96,12 @@ function loadContent() {
                 <li class="nav-item">
                     <a class="nav-link" href="/stats.html">Stats</a>
                 </li>
-                <li class="nav-item">
-                     <a class="nav-link" href="/maps.html">Maps</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Maps</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                       <a class="dropdown-item" href="/maps.html">ExampleMaps</a>
+                       <a class="dropdown-item" href="/find-your-hobby-place.html">SearchPlaces</a>
+                    </div>
                  </li>
                  <li class="nav-item">
                       <a class="nav-link" href="/charts.html">Charts</a>
