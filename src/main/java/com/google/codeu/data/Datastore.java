@@ -182,11 +182,12 @@ public class Datastore {
 
 
     /** Fetches markers from Datastore. */
-    public List<MyMarker> getMyMarkers() {
+    public List<MyMarker> getMyMarkers(String user) {
         List<MyMarker> markers = new ArrayList<>();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Marker");
+        Query query = new Query("Marker")
+                .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
         PreparedQuery results = datastore.prepare(query);
 
         for (Entity entity : results.asIterable()) {
@@ -195,8 +196,6 @@ public class Datastore {
             double lat = (double) entity.getProperty("lat");
             double lng = (double) entity.getProperty("lng");
             String hobby = (String) entity.getProperty("hobby");
-            String user = (String) entity.getProperty("user");
-
             MyMarker marker = new MyMarker(id,user,lat, lng, hobby);
             markers.add(marker);
         }
