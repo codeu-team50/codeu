@@ -1,12 +1,3 @@
-// This example uses the autocomplete feature of the Google Places API.
-// It allows the user to find all hotels in a given place, within a given
-// country. It then displays markers for all the hotels returned,
-// with on-click details for each hotel.
-
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
 var map, places, infoWindow;
 var markers = [];
 var autocomplete;
@@ -14,57 +5,9 @@ var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/i
 var hostnameRegexp = new RegExp('^https?://.+?/');
 
 var countries = {
-    'au': {
-        center: {lat: -25.3, lng: 133.8},
-        zoom: 4
-    },
-    'br': {
-        center: {lat: -14.2, lng: -51.9},
-        zoom: 3
-    },
-    'ca': {
-        center: {lat: 62, lng: -110.0},
-        zoom: 3
-    },
-    'fr': {
-        center: {lat: 46.2, lng: 2.2},
-        zoom: 5
-    },
-    'de': {
-        center: {lat: 51.2, lng: 10.4},
-        zoom: 5
-    },
-    'mx': {
-        center: {lat: 23.6, lng: -102.5},
-        zoom: 4
-    },
-    'nz': {
-        center: {lat: -40.9, lng: 174.9},
-        zoom: 5
-    },
-    'it': {
-        center: {lat: 41.9, lng: 12.6},
-        zoom: 5
-    },
-    'za': {
-        center: {lat: -30.6, lng: 22.9},
-        zoom: 5
-    },
-    'es': {
-        center: {lat: 40.5, lng: -3.7},
-        zoom: 5
-    },
-    'pt': {
-        center: {lat: 39.4, lng: -8.2},
-        zoom: 6
-    },
     'us': {
         center: {lat: 37.1, lng: -95.7},
         zoom: 3
-    },
-    'uk': {
-        center: {lat: 54.8, lng: -4.6},
-        zoom: 5
     }
 };
 
@@ -95,7 +38,7 @@ function initMap() {
 
     // Add a DOM event listener to react when the user selects a country.
     document.getElementById('hobby').addEventListener(
-        'change', setAutocompleteCountry);
+        'change', setAutocompleteHobby);
 }
 
 // When the user selects a city, get the place details for the city and
@@ -153,11 +96,27 @@ function clearMarkers() {
     markers = [];
 }
 
-// Set the country restriction based on user input.
-// Also center and zoom the map on the given country.
-function setAutocompleteCountry() {
+// Set the Hobby restriction based on user input.
+// Also center and zoom the map on the given Hobby.
+function setAutocompleteHobby() {
+    // check whether the user inserts the location
+    if ( document.getElementById('autocomplete').value==''){
+        var alertmesssage =`<div id="alertmessage" class="alert alert-dark" role="alert">
+                            Please select your location
+                        </div>`;
+        document.getElementsByClassName('container')[0].insertAdjacentHTML("afterbegin",alertmesssage );
+        var timePeriodInMs = 4000;
+        setTimeout(function()
+            {
+                document.getElementById("alertmessage").style.display = "none";
+            },
+            timePeriodInMs);
+        return false;
+    }
+
     var hobby = document.getElementById('hobby').value;
     var types=[];
+
     if (hobby=="attractions"){
         types.push('natural_feature','zoo','amusement_park');
     }
@@ -186,25 +145,29 @@ function addResult(result, i) {
     var results = document.getElementById('results');
     var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
     var markerIcon = MARKER_PATH + markerLetter + '.png';
+    var html_template=`     <td id="icon-td" scope="col">
+                            <div>
+                                <img id="icon-marker" src="#" class="placeIcon" classname="placeIcon">
+                            </div>
+                            </td>
+                            <td id="name-td" scope="col" style="padding-left: 10px;">
+                                Kansas City
+                            </td>`;
 
     var tr = document.createElement('tr');
+    tr.innerHTML=html_template;
+
+    name_td= tr.querySelector("#name-td");
+    name_td.innerHTML= result.name;
+
+    icon_marker=tr.querySelector("#icon-marker");
+    icon_marker.src = markerIcon;
+
     tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
     tr.onclick = function() {
         google.maps.event.trigger(markers[i], 'click');
     };
 
-    var iconTd = document.createElement('td');
-    var nameTd = document.createElement('td');
-    nameTd.style.paddingLeft='10px';
-    var icon = document.createElement('img');
-    icon.src = markerIcon;
-    icon.setAttribute('class', 'placeIcon');
-    icon.setAttribute('className', 'placeIcon');
-    var name = document.createTextNode(result.name);
-    iconTd.appendChild(icon);
-    nameTd.appendChild(name);
-    tr.appendChild(iconTd);
-    tr.appendChild(nameTd);
     results.appendChild(tr);
 }
 
