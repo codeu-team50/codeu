@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<head>
+    <title>Hello Google Maps</title>
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <link rel="stylesheet" href="/css/maps-your-hobby-place.css">
+
+    <!-- Core plugin JavaScript-->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap/bootstrap.js"></script>
+    <script src="/js/navigation-loader.js"></script>
+
+    <!-- Custom scripts-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCle7NXk7mSw2h4QfgI4pp4V9fxkX-1ACA&libraries=places"></script>
+    <script src="/js/find-your-hobby-place-loader.js"></script>
+
+</head>
+<body onload="buildUI();">
+<header id="navigation-bar">
+</header>
+<div class="container" id="container">
+    <h3 style="margin-bottom: 10px">Search Places According to your Hobby</h3>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="autocomplete">Enter Your City</label>
+                <input type="text" class="form-control" id="autocomplete" placeholder=""Enter your Location">
+            </div>
+            <div class="form-group">
+                <label for="hobby">Hobby</label>
+                <select class="form-control" id="hobby">
+                    <option value="attractions">Travelling</option>
+                    <option value="garden">Gardening</option>
+                    <option value="sports">Sports</option>
+                    <option value="reading">Reading</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="map"></div>
+            <p>This page shows a Google Map!</p>
+        </div>
+        <div class="col">
+            <div class="listing">
+                <table class="table table-striped"  id="resultsTable">
+                    <tbody id="results">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div style="display: none">
+    <div id="info-content">
+        <table>
+            <tr id="iw-url-row" class="iw_table_row">
+                <td id="iw-icon" class="iw_table_icon"></td>
+                <td id="iw-url"></td>
+            </tr>
+            <tr id="iw-address-row" class="iw_table_row">
+                <td class="iw_attribute_name">Address:</td>
+                <td id="iw-address"></td>
+            </tr>
+            <tr id="iw-phone-row" class="iw_table_row">
+                <td class="iw_attribute_name">Telephone:</td>
+                <td id="iw-phone"></td>
+            </tr>
+            <tr id="iw-rating-row" class="iw_table_row">
+                <td class="iw_attribute_name">Rating:</td>
+                <td id="iw-rating"></td>
+            </tr>
+            <tr id="iw-website-row" class="iw_table_row">
+                <td class="iw_attribute_name">Website:</td>
+                <td id="iw-website"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
