@@ -166,4 +166,40 @@ public class Datastore {
         return messages;
     }
 
+
+
+
+    /** Stores a marker in Datastore. */
+    public void storeMarker(MyMarker marker) {
+        Entity markerEntity = new Entity("Marker",marker.getId().toString());
+        markerEntity.setProperty("lat", marker.getLat());
+        markerEntity.setProperty("lng", marker.getLng());
+        markerEntity.setProperty("hobby", marker.getHobby());
+        markerEntity.setProperty("hobby", marker.getUser());
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(markerEntity);
+    }
+
+
+    /** Fetches markers from Datastore. */
+    public List<MyMarker> getMyMarkers(String user) {
+        List<MyMarker> markers = new ArrayList<>();
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query = new Query("Marker")
+                .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
+        PreparedQuery results = datastore.prepare(query);
+
+        for (Entity entity : results.asIterable()) {
+            String idString = entity.getKey().getName();
+            UUID id = UUID.fromString(idString);
+            double lat = (double) entity.getProperty("lat");
+            double lng = (double) entity.getProperty("lng");
+            String hobby = (String) entity.getProperty("hobby");
+            MyMarker marker = new MyMarker(id,user,lat, lng, hobby);
+            markers.add(marker);
+        }
+        return markers;
+    }
+
 }

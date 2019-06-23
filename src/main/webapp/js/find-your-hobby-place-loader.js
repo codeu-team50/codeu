@@ -3,7 +3,7 @@ var markers = [];
 var autocomplete;
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 var hostnameRegexp = new RegExp('^https?://.+?/');
-
+var placeX;
 var countries = {
     'us': {
         center: {lat: 37.1, lng: -95.7},
@@ -54,14 +54,14 @@ function onPlaceChanged() {
 }
 
 // Search for hotels in the selected city, within the viewport of the map.
-function search(hobby,types) {
+function search(hobby, types) {
     var search = {
         query: hobby,
         bounds: map.getBounds(),
         types: types
     };
 
-    places.nearbySearch(search, function(results, status) {
+    places.nearbySearch(search, function (results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
             clearResults();
             clearMarkers();
@@ -100,43 +100,31 @@ function clearMarkers() {
 // Also center and zoom the map on the given Hobby.
 function setAutocompleteHobby() {
     // check whether the user inserts the location
-    if ( document.getElementById('autocomplete').value==''){
-        var alertmesssage =`<div id="alertmessage" class="alert alert-dark" role="alert">
-                            Please select your location
-                        </div>`;
-        document.getElementsByClassName('container')[0].insertAdjacentHTML("afterbegin",alertmesssage );
-        var timePeriodInMs = 4000;
-        setTimeout(function()
-            {
-                document.getElementById("alertmessage").style.display = "none";
-            },
-            timePeriodInMs);
+    if (document.getElementById('autocomplete').value == '') {
+        createAlert("Please select your location");
         return false;
     }
 
     var hobby = document.getElementById('hobby').value;
-    var types=[];
+    var types = [];
 
-    if (hobby=="attractions"){
-        types.push('natural_feature','zoo','amusement_park');
-    }
-    else if (hobby=="garden"){
+    if (hobby == "attractions") {
+        types.push('natural_feature', 'zoo', 'amusement_park');
+    } else if (hobby == "garden") {
         types.push();
-    }
-    else if (hobby=="sports"){
-        types.push('gym','stadium');
-    }
-    else if (hobby=="reading"){
+    } else if (hobby == "sports") {
+        types.push('gym', 'stadium');
+    } else if (hobby == "reading") {
         types.push('library');
     }
 
     clearResults();
     clearMarkers();
-    search(hobby,types);
+    search(hobby, types);
 }
 
 function dropMarker(i) {
-    return function() {
+    return function () {
         markers[i].setMap(map);
     };
 }
@@ -145,7 +133,7 @@ function addResult(result, i) {
     var results = document.getElementById('results');
     var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
     var markerIcon = MARKER_PATH + markerLetter + '.png';
-    var html_template=`     <td id="icon-td" scope="col">
+    var html_template = `     <td id="icon-td" scope="col">
                             <div>
                                 <img id="icon-marker" src="#" class="placeIcon" classname="placeIcon">
                             </div>
@@ -155,16 +143,16 @@ function addResult(result, i) {
                             </td>`;
 
     var tr = document.createElement('tr');
-    tr.innerHTML=html_template;
+    tr.innerHTML = html_template;
 
-    name_td= tr.querySelector("#name-td");
-    name_td.innerHTML= result.name;
+    name_td = tr.querySelector("#name-td");
+    name_td.innerHTML = result.name;
 
-    icon_marker=tr.querySelector("#icon-marker");
+    icon_marker = tr.querySelector("#icon-marker");
     icon_marker.src = markerIcon;
 
     tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
-    tr.onclick = function() {
+    tr.onclick = function () {
         google.maps.event.trigger(markers[i], 'click');
     };
 
@@ -183,7 +171,7 @@ function clearResults() {
 function showInfoWindow() {
     var marker = this;
     places.getDetails({placeId: marker.placeResult.place_id},
-        function(place, status) {
+        function (place, status) {
             if (status !== google.maps.places.PlacesServiceStatus.OK) {
                 return;
             }
@@ -240,9 +228,45 @@ function buildIWContent(place) {
     } else {
         document.getElementById('iw-website-row').style.display = 'none';
     }
+    var save_place_btn = document.getElementById('save-place-btn');
+    save_place_btn.onclick = () => {
+        postMarker(place);
+        createAlert("Place successfully Saved!");
+    };
 }
 
-function buildUI(){
+
+/** Sends a marker to the backend for saving. */
+function postMarker(place) {
+    placeX = place;
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    var hobby = document.getElementById('hobby').value;
+
+    const params = new URLSearchParams();
+    params.append('lat', lat);
+    params.append('lng', lng);
+    params.append('hobby', hobby);
+
+    fetch('/markers', {
+        method: 'POST',
+        body: params
+    });
+}
+
+
+function createAlert(message) {
+    var alertmesssage = `<div id="alertmessage" class="alert alert-dark" role="alert">` + message + `</div>`;
+    document.getElementsByClassName('container')[0].insertAdjacentHTML("afterbegin", alertmesssage);
+    var timePeriodInMs = 3000;
+    setTimeout(function () {
+            document.getElementById("alertmessage").style.display = "none";
+        },
+        timePeriodInMs);
+}
+
+
+function buildUI() {
     loadNavigation();
     initMap();
 }
