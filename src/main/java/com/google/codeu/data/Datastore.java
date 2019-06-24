@@ -168,14 +168,13 @@ public class Datastore {
 
 
 
-
     /** Stores a marker in Datastore. */
     public void storeMarker(MyMarker marker) {
         Entity markerEntity = new Entity("Marker",marker.getId().toString());
         markerEntity.setProperty("lat", marker.getLat());
         markerEntity.setProperty("lng", marker.getLng());
         markerEntity.setProperty("hobby", marker.getHobby());
-        markerEntity.setProperty("hobby", marker.getUser());
+        markerEntity.setProperty("user", marker.getUser());
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(markerEntity);
     }
