@@ -239,7 +239,7 @@ function buildIWContent(place) {
 function postMarker(place) {
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
-    var id = place.id;
+    var id = place.place_id;
     var hobby = document.getElementById('hobby').value;
 
     const params = new URLSearchParams();
@@ -247,7 +247,7 @@ function postMarker(place) {
     params.append('lng', lng);
     params.append('hobby', hobby);
     params.append('id', id);
-
+    console.log(id);
     fetch('/markers', {
         method: 'POST',
         body: params
@@ -270,3 +270,4 @@ function buildUI() {
     loadNavigation();
     initMap();
 }
+
