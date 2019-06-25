@@ -31,14 +31,14 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <link rel="stylesheet" href="/css/message-post.css">
 
-    <link rel="stylesheet" href="/css/maps.css">
-
     <!-- Core plugin JavaScript-->
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap/bootstrap.js"></script>
     <script src="/js/navigation-loader.js"></script>
 
     <!-- Custom scripts-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCle7NXk7mSw2h4QfgI4pp4V9fxkX-1ACA&libraries=places"></script>
+    <script src="/js/map-user-page-loader.js"></script>
     <script src="/js/message-template.js"></script>
     <script src="/js/user-page-loader.js"></script>
 
@@ -48,8 +48,6 @@ limitations under the License.
 <header id="navigation-bar">
 </header>
 <div class="container">
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
 
     <h1>Profile</h1>
     <div class="justify-content-center text-center">
@@ -145,14 +143,57 @@ limitations under the License.
                 </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                <div class="col-9">
+                    <div id="map" style="height: 500px;">
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="listing">
+                        <table class="table table-striped"  id="resultsTable">
+                            <tbody id="results">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
-
-
-
 </div>
 
 </div>
+
+<!--Map info window don't remove. Style should display: none -->
+<div style="display: none">
+    <div id="info-content">
+        <table>
+            <tr id="iw-url-row" class="iw_table_row">
+                <td id="iw-icon" class="iw_table_icon"></td>
+                <td id="iw-url"></td>
+            </tr>
+            <tr id="iw-address-row" class="iw_table_row">
+                <td class="iw_attribute_name">Address:</td>
+                <td id="iw-address"></td>
+            </tr>
+            <tr id="iw-phone-row" class="iw_table_row">
+                <td class="iw_attribute_name">Telephone:</td>
+                <td id="iw-phone"></td>
+            </tr>
+            <tr id="iw-rating-row" class="iw_table_row">
+                <td class="iw_attribute_name">Rating:</td>
+                <td id="iw-rating"></td>
+            </tr>
+            <tr id="iw-website-row" class="iw_table_row">
+                <td class="iw_attribute_name">Website:</td>
+                <td id="iw-website"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
 </body>
 </html>

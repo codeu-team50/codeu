@@ -27,12 +27,13 @@ public class MyMarkerServlet extends HttpServlet {
     /** Responds with a JSON array containing marker data. */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UserService userService = UserServiceFactory.getUserService();
-        if (!userService.isUserLoggedIn()) {
+        String user = request.getParameter("user");
+
+        if (user == null || user.equals("")) {
+            // Request is invalid, return empty response
             response.sendRedirect("/index.html");
-            return;
         }
-        String user = userService.getCurrentUser().getEmail();
+
         response.setContentType("application/json");
         List<MyMarker> markers = datastore.getMyMarkers(user);
         Gson gson = new Gson();

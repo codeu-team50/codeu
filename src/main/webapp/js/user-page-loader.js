@@ -228,4 +228,5 @@ function buildUI() {
     showMessageFormIfViewingSelf();
     fetchMessages();
     fetchAboutMe();
+    initMap();
 }
