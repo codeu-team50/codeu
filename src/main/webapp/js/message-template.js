@@ -18,7 +18,7 @@ function buildMessageDiv(message,user) {
                     </div>
 
                 </div>
-                <div class="card-body">
+                <div class="    ">
                     <div class="text-muted h7 mb-2" id="message-time"><i class="fa fa-clock-o"></i> 10 min ago</div>
                     <p class="card-text" id="message-text">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam omnis nihil, aliquam est,
@@ -44,6 +44,7 @@ function buildMessageDiv(message,user) {
                 <div class="card-footer">
                     <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
                     <a id="message-score" style="color:#1c7430" href="#" class="fab fa-smile"></a>
+                    <button id="text-to-speech" style="color:#0000ff" class="fab fa-gratipay"></button>
                 </div>`;
 
 
@@ -65,6 +66,11 @@ function buildMessageDiv(message,user) {
     message_score= messageDiv.querySelector("#message-score");
     message_score.innerHTML=message.score.toFixed(2);
 
+    speech_generator= messageDiv.querySelector("#text-to-speech");
+    speech_generator.addEventListener('click', () => {
+        playAudio(message.text);
+    });
+
     message_dp= messageDiv.querySelector("#message-dp");
     user_imageUrl=user.imageUrl;
 
@@ -83,4 +89,24 @@ function buildMessageDiv(message,user) {
     }
 
     return messageDiv;
+}
+
+
+function playAudio(text) {
+        fetch("/tts", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text }),
+        })
+        .then(response => response.blob())
+        .then((audioBlob) => {
+            const audioUrl = window.URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            audio.play()
+            .catch((error) => {
+                throw error.message;
+            });
+        });
 }
