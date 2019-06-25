@@ -92,21 +92,39 @@ function buildMessageDiv(message,user) {
 }
 
 
+// function playAudio1(text) {
+//         fetch("/tts", {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({ text }),
+//         })
+//         .then(response => response.blob())
+//         .then((audioBlob) => {
+//             const audioUrl = window.URL.createObjectURL(audioBlob);
+//             const audio = new Audio(audioUrl);
+//             audio.play()
+//             .catch((error) => {
+//                 throw error.message;
+//             });
+//         });
+// }
+
 function playAudio(text) {
-        fetch("/tts", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text }),
-        })
+    const params = new URLSearchParams();
+    params.append('text', text);
+    fetch("/tts", {
+        method: 'POST',
+        body: params
+    })
         .then(response => response.blob())
         .then((audioBlob) => {
             const audioUrl = window.URL.createObjectURL(audioBlob);
             const audio = new Audio(audioUrl);
             audio.play()
-            .catch((error) => {
-                throw error.message;
-            });
+                .catch((error) => {
+                    throw error.message;
+                });
         });
 }
