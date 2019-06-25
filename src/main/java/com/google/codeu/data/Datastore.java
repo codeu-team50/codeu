@@ -170,13 +170,25 @@ public class Datastore {
 
     /** Stores a marker in Datastore. */
     public void storeMarker(MyMarker marker) {
-        Entity markerEntity = new Entity("Marker",marker.getId().toString());
-        markerEntity.setProperty("lat", marker.getLat());
-        markerEntity.setProperty("lng", marker.getLng());
-        markerEntity.setProperty("hobby", marker.getHobby());
-        markerEntity.setProperty("user", marker.getUser());
+
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        datastore.put(markerEntity);
+        Query query = new Query("MyMarker")
+                .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, marker.getUser()))
+                .setFilter(new Query.FilterPredicate("placeId", FilterOperator.EQUAL, marker.getPlaceId()));
+        PreparedQuery results = datastore.prepare(query);
+
+        int count = results.countEntities(FetchOptions.Builder.withLimit(1000));
+
+        //Check whether the user saved this place earlier!
+        if (count==0){
+            Entity markerEntity = new Entity("MyMarker",marker.getId().toString());
+            markerEntity.setProperty("placeId", marker.getPlaceId());
+            markerEntity.setProperty("lat", marker.getLat());
+            markerEntity.setProperty("lng", marker.getLng());
+            markerEntity.setProperty("hobby", marker.getHobby());
+            markerEntity.setProperty("user", marker.getUser());
+            datastore.put(markerEntity);
+        }
     }
 
 
@@ -185,7 +197,7 @@ public class Datastore {
         List<MyMarker> markers = new ArrayList<>();
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-        Query query = new Query("Marker")
+        Query query = new Query("MyMarker")
                 .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user));
         PreparedQuery results = datastore.prepare(query);
 
@@ -195,7 +207,8 @@ public class Datastore {
             double lat = (double) entity.getProperty("lat");
             double lng = (double) entity.getProperty("lng");
             String hobby = (String) entity.getProperty("hobby");
-            MyMarker marker = new MyMarker(id,user,lat, lng, hobby);
+            String placeId = (String) entity.getProperty("placeId");
+            MyMarker marker = new MyMarker(id,placeId,user,lat, lng, hobby);
             markers.add(marker);
         }
         return markers;

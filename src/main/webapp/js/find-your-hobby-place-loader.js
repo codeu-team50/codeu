@@ -3,7 +3,6 @@ var markers = [];
 var autocomplete;
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
 var hostnameRegexp = new RegExp('^https?://.+?/');
-var placeX;
 var countries = {
     'us': {
         center: {lat: 37.1, lng: -95.7},
@@ -238,15 +237,16 @@ function buildIWContent(place) {
 
 /** Sends a marker to the backend for saving. */
 function postMarker(place) {
-    placeX = place;
     var lat = place.geometry.location.lat();
     var lng = place.geometry.location.lng();
+    var id = place.id;
     var hobby = document.getElementById('hobby').value;
 
     const params = new URLSearchParams();
     params.append('lat', lat);
     params.append('lng', lng);
     params.append('hobby', hobby);
+    params.append('id', id);
 
     fetch('/markers', {
         method: 'POST',

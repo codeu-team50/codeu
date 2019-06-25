@@ -52,9 +52,10 @@ public class MyMarkerServlet extends HttpServlet {
         String user = userService.getCurrentUser().getEmail();
         double lat = Double.parseDouble(request.getParameter("lat"));
         double lng = Double.parseDouble(request.getParameter("lng"));
+        String placeId = Jsoup.clean(request.getParameter("id"), Whitelist.none());
         String hobby = Jsoup.clean(request.getParameter("hobby"), Whitelist.none());
 
-        MyMarker marker = new MyMarker(user,lat, lng, hobby);
+        MyMarker marker = new MyMarker(placeId,user,lat, lng, hobby);
         datastore.storeMarker(marker);
     }
 
