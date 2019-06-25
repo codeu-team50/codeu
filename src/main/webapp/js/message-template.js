@@ -18,7 +18,7 @@ function buildMessageDiv(message,user) {
                     </div>
 
                 </div>
-                <div class="    ">
+                <div class="card-body">
                     <div class="text-muted h7 mb-2" id="message-time"><i class="fa fa-clock-o"></i> 10 min ago</div>
                     <p class="card-text" id="message-text">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam omnis nihil, aliquam est,
