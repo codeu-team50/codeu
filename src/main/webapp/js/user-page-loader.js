@@ -54,36 +54,46 @@ function showMessageFormIfViewingSelf() {
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
     const url = '/messages?user=' + parameterUsername;
-    fetch(url)
+    var loginStatusGlobal;
+    fetch('/login-status')
         .then((response) => {
             return response.json();
-        })
-        .then((messages) => {
-            const messageContainer = document.getElementById('message-container');
-            if (messages.length == 0) {
-                messageContainer.innerHTML += '<p>This user has no posts yet.</p>';
-            } else {
-                messageContainer.innerHTML += '';
-            }
-            var userPromises = [];
-            var users = [];
+        }).then((loginStatus) => {
+        // do stuff with `data`, call second `fetch`
+        loginStatusGlobal = loginStatus;
+        return fetch(url);
+    }).then((response) => {
+        return response.json();
+    }).then((messages) => {
+        const messageContainer = document.getElementById('message-container');
+        if (messages.length == 0) {
+            messageContainer.innerHTML += '<p>This user has no posts yet.</p>';
+        } else {
+            messageContainer.innerHTML += '';
+        }
+        var userPromises = [];
+        var users = [];
 
-            messages.forEach((message) => {
-                const url = '/about?user=' + message.user;
-                userPromises.push(fetch(url)
-                    .then(res => {return res.json(); })
-                    .then(res => {users.push(res) }));
-            });
+        messages.forEach((message) => {
+            const url = '/about?user=' + message.user;
+            userPromises.push(fetch(url)
+                .then(res => {
+                    return res.json();
+                })
+                .then(res => {
+                    users.push(res)
+                }));
+        });
 
 
-            Promise.all(userPromises).then(values => {
-                values.forEach((userPromise, index) => {
-                        //setting the variables to html elements.
-                        const messageDiv = buildMessageDiv(messages[index], users[index]);
-                        messageContainer.appendChild(messageDiv);
-                });
+        Promise.all(userPromises).then(values => {
+            values.forEach((userPromise, index) => {
+                //setting the variables to html elements.
+                const messageDiv = buildMessageDiv(messages[index], users[index],loginStatusGlobal);
+                messageContainer.appendChild(messageDiv);
             });
         });
+    });
 }
 
 /**

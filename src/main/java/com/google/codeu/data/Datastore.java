@@ -25,11 +25,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Provides access to the data stored in Datastore.
@@ -45,8 +41,9 @@ public class Datastore {
     /**
      * Stores the Message in Datastore.
      */
-    public void storeMessage(Message message) {
+    public void storeMessage(Message message){
         Entity messageEntity = new Entity("Message", message.getId().toString());
+        messageEntity.setProperty("id", message.getId().toString());
         messageEntity.setProperty("user", message.getUser());
         messageEntity.setProperty("text", message.getText());
         messageEntity.setProperty("imageUrl", message.getImageUrl());
@@ -143,6 +140,7 @@ public class Datastore {
             try {
                 String idString = entity.getKey().getName();
                 UUID id = UUID.fromString(idString);
+
                 String user = (String) entity.getProperty("user");
                 String text = (String) entity.getProperty("text");
                 long timestamp = (long) entity.getProperty("timestamp");
@@ -156,6 +154,11 @@ public class Datastore {
                     message.setImageUrl(imageUrl);
                 }
 
+                if (entity.hasProperty("likes")) {
+                    List<String>likes=(List<String>) entity.getProperty("likes");
+                    message.setLikes(likes);
+                }
+
                 messages.add(message);
             } catch (Exception e) {
                 System.err.println("Error reading message.");
@@ -166,7 +169,45 @@ public class Datastore {
         return messages;
     }
 
+    /** Likes a Message*/
+    public void likeMessages(String userLiked,String messageId,Boolean isLiked) {
 
+        Query query =
+                new Query("Message")
+                        .setFilter(new Query.FilterPredicate("id", FilterOperator.EQUAL, messageId));
+        PreparedQuery results = datastore.prepare(query);
+        Entity entity =results.asSingleEntity();
+
+        if (entity.hasProperty("likes")){
+            List<String> likes=(List<String>) entity.getProperty("likes");
+            if (likes==null){
+                likes=new ArrayList<>();
+            }
+
+            if(isLiked){
+                if(!likes.contains(userLiked)){
+                    likes.add(userLiked);
+                    entity.setProperty("likes", likes);
+                    datastore.put(entity);
+                }
+            }
+            else {
+                if(likes.contains(userLiked)){
+                    likes.remove(userLiked);
+                    entity.setProperty("likes", likes);
+                    datastore.put(entity);
+                }
+            }
+        }
+        else{
+            if(isLiked) {
+                List<String> likes =new ArrayList<>();
+                likes.add(userLiked);
+                entity.setProperty("likes", likes);
+                datastore.put(entity);
+            }
+        }
+    }
 
     /** Stores a marker in Datastore. */
     public void storeMarker(MyMarker marker) {
