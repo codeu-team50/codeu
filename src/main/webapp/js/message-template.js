@@ -1,4 +1,4 @@
-function buildMessageDiv(message,user) {
+function buildMessageDiv(message,user,loginStatusGlobal) {
     var messageDiv = document.createElement('div');
     messageDiv.className += "card gedf-card";
 
@@ -42,9 +42,9 @@ function buildMessageDiv(message,user) {
                 </div>
 
                 <div class="card-footer">
-                    <a style="color:#E91E63" href="#" class="card-link"><i style="color:#E91E63" class="fab fa-gratipay"></i> Like</a>
-                    <a id="message-score" style="color:#1c7430" href="#" class="fab fa-smile"></a>
-                    <button id="text-to-speech" style="color:#0000ff" class="fab fa-gratipay"></button>
+                    <button id="message-like_btn" href=""  onClick="likeMessage(this.id)" style="color:#78909C;font-size:125%;"  class="btn btn-light card-link"><i style="color:#78909C" class="fab fa-gratipay"></i><b  id="likes-count" style="color:#78909C">23</b></button>
+                    <a style="color:#FFA726;font-size:125%;"   class="card-link"> <i class="fab fa-discord"></i> <b  style="color:#FFA726" id="message-score"></b></a>
+                    <button id="text-to-speech"  class="btn btn-info btn-sm fas fa-volume-up float-right"></button>
                 </div>`;
 
 
@@ -75,6 +75,10 @@ function buildMessageDiv(message,user) {
     user_imageUrl=user.imageUrl;
 
 
+    message_like_btn= messageDiv.querySelector("#message-like_btn");
+    message_like_btn.id= message.id;
+
+
     //Sample Image url if the image is not there.
     if (user_imageUrl == undefined) {
         user_imageUrl = 'https://www.iei.unach.mx/images/imagenes/profile.png';
@@ -88,28 +92,56 @@ function buildMessageDiv(message,user) {
         message_imageUrl.classList.remove('hidden');
     }
 
+
+    if(message.likes==null){
+        message_like_btn.style.color='rgb(120, 144, 156)';
+        message_like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
+        message_like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
+        message_like_btn.getElementsByTagName('b')[0].innerText=0;
+    }
+    else {
+        if( message.likes.indexOf(loginStatusGlobal.username) > -1){
+            message_like_btn.style.color='rgb(233, 30, 99)';
+            message_like_btn.getElementsByTagName('i')[0].style.color='rgb(233, 30, 99)';
+            message_like_btn.getElementsByTagName('b')[0].style.color='rgb(233, 30, 99)';
+            message_like_btn.getElementsByTagName('b')[0].innerText=message.likes.length;
+        }
+        else {
+            message_like_btn.style.color='rgb(120, 144, 156)';
+            message_like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
+            message_like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
+            message_like_btn.getElementsByTagName('b')[0].innerText=message.likes.length;
+        }
+    }
+    if (!loginStatusGlobal.isLoggedIn){
+        message_like_btn.disabled = true;
+    }
     return messageDiv;
 }
 
 
-// function playAudio1(text) {
-//         fetch("/tts", {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ text }),
-//         })
-//         .then(response => response.blob())
-//         .then((audioBlob) => {
-//             const audioUrl = window.URL.createObjectURL(audioBlob);
-//             const audio = new Audio(audioUrl);
-//             audio.play()
-//             .catch((error) => {
-//                 throw error.message;
-//             });
-//         });
-// }
+function likeMessage(clicked_id)
+{
+    var like_btn=document.getElementById(clicked_id);
+    var color =like_btn.style.color;
+    var count= parseInt(like_btn.getElementsByTagName('b')[0].innerText);
+
+    if (color=="rgb(120, 144, 156)"){
+        postLike(clicked_id,true);
+        like_btn.style.color='rgb(233, 30, 99)';
+        like_btn.getElementsByTagName('i')[0].style.color='rgb(233, 30, 99)';
+        like_btn.getElementsByTagName('b')[0].style.color='rgb(233, 30, 99)';
+        like_btn.getElementsByTagName('b')[0].innerText=count+1;
+    }
+    else {
+        postLike(clicked_id,false);
+        like_btn.style.color='rgb(120, 144, 156)';
+        like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
+        like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
+        like_btn.getElementsByTagName('b')[0].innerText=count-1;
+    }
+}
+
 
 function playAudio(text) {
     const params = new URLSearchParams();
@@ -127,4 +159,15 @@ function playAudio(text) {
                     throw error.message;
                 });
         });
+}
+
+/** Sends a Likes to backend for saving. */
+function postLike(clicked_id,is_liked) {
+    const params = new URLSearchParams();
+    params.append('id', clicked_id);
+    params.append('is_liked', is_liked);
+    fetch('/like', {
+        method: 'POST',
+        body: params
+    });
 }

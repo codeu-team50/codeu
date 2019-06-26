@@ -16,6 +16,7 @@
 
 package com.google.codeu.data;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -29,6 +30,7 @@ public class Message {
     private String imageUrl;
     private long timestamp;
     private double score;
+    private List<String> likes;
 
 
 
@@ -65,6 +67,8 @@ public class Message {
         this.score = score;
     }
 
+    public void setLikes(List<String> likes) { this.likes = likes; }
+
     public UUID getId() {
         return id;
     }
@@ -88,4 +92,6 @@ public class Message {
     public double getScore(){
         return score;
     }
+
+    public List<String> getLikes() { return likes; }
 }
