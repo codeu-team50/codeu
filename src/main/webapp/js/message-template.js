@@ -92,6 +92,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         message_imageUrl.classList.remove('hidden');
     }
 
+
     if(message.likes==null){
         message_like_btn.style.color='rgb(120, 144, 156)';
         message_like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
@@ -112,13 +113,15 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
             message_like_btn.getElementsByTagName('b')[0].innerText=message.likes.length;
         }
     }
+    if (!loginStatusGlobal.isLoggedIn){
+        message_like_btn.disabled = true;
+    }
     return messageDiv;
 }
 
 
 function likeMessage(clicked_id)
 {
-    alert(clicked_id);
     var like_btn=document.getElementById(clicked_id);
     var color =like_btn.style.color;
     var count= parseInt(like_btn.getElementsByTagName('b')[0].innerText);
