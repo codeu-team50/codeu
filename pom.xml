@@ -72,7 +72,7 @@ limitations under the License.
       <artifactId>kefirbb</artifactId>
       <version>1.5</version>
     </dependency>
-    
+
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-language</artifactId>
@@ -83,6 +83,12 @@ limitations under the License.
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-texttospeech</artifactId>
       <version>0.80.0-beta</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-vision</artifactId>
+      <version>1.55.0</version>
     </dependency>
 
   </dependencies>
