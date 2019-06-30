@@ -90,18 +90,17 @@ function loadContent() {
                 <li class="nav-item">
                     <a class="nav-link" href="/find-your-hobby-place.html">Search Places</a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                       <a class="nav-link" href="/charts.html">Charts</a>
-                  </li>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/stats.html">Stats</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/community.html">Community</a>
                 </li>
-                  
                 <li class="nav-item">
-                    <a class="nav-link" href="/aboutus.html">About Our Team</a>
+                    <a class="nav-link" href="/aboutus.html">Meet The Team</a>
                 </li>            
             </ul>
         </div>
