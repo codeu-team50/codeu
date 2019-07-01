@@ -1,3 +1,19 @@
+function showMessageFormIfViewingSelf() {
+
+    fetch('/login-status')
+        .then((response) => {
+            return response.json();
+        })
+        .then((loginStatus) => {
+            if (loginStatus.isLoggedIn) {
+                const messageForm = document.getElementById('message-form');
+                messageForm.classList.remove('hidden');
+
+            }
+        });
+}
+
+
 // Fetch messages and add them to the page.
 function fetchMessages() {
     const url = '/feed';
@@ -44,6 +60,7 @@ function fetchMessages() {
 // Fetch data and populate the UI of the page.
 
 function buildUI() {
+    showMessageFormIfViewingSelf();
     loadNavigation();
     fetchMessages();
 }
