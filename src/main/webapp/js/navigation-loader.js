@@ -77,7 +77,7 @@ function loadNavigation() {
 function loadContent() {
     const navigationbar = document.getElementById('navigation-bar');
     const content = ` <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/">HOME</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -85,23 +85,23 @@ function loadContent() {
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto" >
                 <li class="nav-item">
-                    <a class="nav-link" href="/aboutus.html">About Our Team</a>
+                    <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/community.html">Community</a>
+                    <a class="nav-link" href="/find-your-hobby-place.html">SEARCH PLACES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/feed.html">Public Feed</a>
+                      <a class="nav-link" href="/charts.html">ANALYTICS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/stats.html">Stats</a>
+                    <a class="nav-link" href="/stats.html">STATS</a>
                 </li>
-                 <li class="nav-item">
-                      <a class="nav-link" href="/charts.html">Charts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/find-your-hobby-place.html">Search Places</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/community.html">COMMUNITY</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/aboutus.html">TEAM</a>
+                </li>            
             </ul>
         </div>
     </nav>`;
