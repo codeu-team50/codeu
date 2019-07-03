@@ -55,10 +55,6 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     message_text.innerHTML= message.text;
 
     message_username=messageDiv.querySelector("#message-username");
-    message_username.innerHTML=message.user;
-
-    message_nickname=messageDiv.querySelector("#message-nickname");
-    message_nickname.innerHTML=user.nickName;
 
     message_time=messageDiv.querySelector("#message-time");
     message_time.innerHTML=new Date(message.timestamp);
@@ -77,6 +73,18 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
 
     message_like_btn= messageDiv.querySelector("#message-like_btn");
     message_like_btn.id= message.id;
+
+    message_nickname=messageDiv.querySelector("#message-nickname");
+
+    if (user.nickName == undefined) {
+        message_nickname.innerHTML=`<a href="`+"/user-page.html?user="+message.user +`">`+message.user+`</a>`;
+        message_username.innerHTML=" ";
+    }
+    else {
+        message_nickname.innerHTML=`<a href="`+"/user-page.html?user="+message.user +`">`+user.nickName+`</a>`;
+        message_username.innerHTML=message.user;
+    }
+
 
 
     //Sample Image url if the image is not there.

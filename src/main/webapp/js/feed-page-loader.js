@@ -56,10 +56,25 @@ function fetchMessages() {
 
 }
 
+/** Fetches BlobstoreUrl for the Message Form. */
+function fetchBlobstoreUrlAndShowMessageForm() {
+    fetch('/blobstore-upload-url?type=message')
+        .then((response) => {
+            return response.text();
+        })
+        .then((imageUploadUrl) => {
+            const messageForm = document.getElementById('msg-form');
+            messageForm.action = imageUploadUrl;
+            messageForm.classList.remove('hidden');
+        });
+}
+
+
 
 // Fetch data and populate the UI of the page.
 
 function buildUI() {
+    fetchBlobstoreUrlAndShowMessageForm();
     showMessageFormIfViewingSelf();
     loadNavigation();
     fetchMessages();
