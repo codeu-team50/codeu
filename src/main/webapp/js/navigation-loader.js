@@ -50,7 +50,7 @@ function addLoginOrLogoutLinkToNavigation() {
  */
 function createListItem(childElement) {
     const listItemElement = document.createElement('li');
-    listItemElement.appendChild(childElement);
+    listItemElement.innerHTML+=childElement;
     return listItemElement;
 }
 
@@ -61,10 +61,7 @@ function createListItem(childElement) {
  * @return {Element} Anchor element
  */
 function createLink(url, text) {
-    const linkElement = document.createElement('a');
-    linkElement.className += "btn btn-outline-success my-2 my-sm-0";
-    linkElement.appendChild(document.createTextNode(text));
-    linkElement.href = url;
+    const linkElement = `<a class="btn btn-outline-light my-2 my-sm-0" href="`+url+`">`+text+`</a>`;
     return linkElement;
 }
 
@@ -76,7 +73,8 @@ function loadNavigation() {
 
 function loadContent() {
     const navigationbar = document.getElementById('navigation-bar');
-    const content = ` <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <div class="container">
         <a class="navbar-brand" href="/">HOME</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,6 +82,9 @@ function loadContent() {
         </button>
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto" >
+                <li class="nav-item">
+                    <a class="nav-link" href="/#project">FEATURES</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
                 </li>
@@ -100,9 +101,10 @@ function loadContent() {
                     <a class="nav-link" href="/community.html">COMMUNITY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/aboutus.html">TEAM</a>
+                    <a class="nav-link" href="/#team">TEAM</a>
                 </li>            
             </ul>
+        </div>
         </div>
     </nav>`;
     navigationbar.innerHTML += content;

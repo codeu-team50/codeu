@@ -1,62 +1,320 @@
-<!--
-Copyright 2019 Google Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
 <!DOCTYPE html>
-<html>
+<html lang="zxx" class="no-js">
 <head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- meta character set -->
     <meta charset="UTF-8">
+    <!-- Site Title -->
     <title>HobbyU</title>
 
-    <!-- Custom styles for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/css/fontawesome/css/brands.min.css">
+    <link rel="stylesheet" href="/css/fontawesome/css/solid.min.css">
+
+
+    <link rel="stylesheet" href="css/homepage/linearicons.css">
+    <link rel="stylesheet" href="css/homepage/jquery.DonutWidget.min.css">
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="css/homepage/owl.carousel.css">
+    <link rel="stylesheet" href="css/homepage/main.css">
 
-    <!-- Core plugin JavaScript-->
-    <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap/bootstrap.js"></script>
+
     <script src="/js/navigation-loader.js"></script>
+
+    <!-- Custom scripts-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCle7NXk7mSw2h4QfgI4pp4V9fxkX-1ACA&libraries=places"></script>
+    <script src="/js/map-user-page-loader.js"></script>
+    <script src="/js/message-template.js"></script>
 </head>
-<body onload="loadNavigation();">
-<header id="navigation-bar" >
+<body>
+
+<!-- Start Header Area -->
+<header id="navigation-bar">
 </header>
-<!-- Begin page content -->
-<main role="main" class="container">
-    <h1>HobbyU</h1>
-    <br>
-    <h5>Hey Hobbyists!</h5>
-    <br>
-    <p>HobbyU is a one-stop platform to share, engage and even to find new Hobbies. <br>
-        We encourage you, our community to be creative, to be positive and to keep sharing what you do!</p>
 
-    <p> You can create a account simply by using your Google Account, and then add NickNames, Statuses and customize y
-        our profile, for the next time you visit.<br>
-        You can now post updates as texts or even images. Analyzing the sentiment of the post is on us.Always remember 
-        spread positivity and make the world a better place.<br>
-        And if you're lazy to read all those post-updates, let us read out all of them for you with one button click. :) <br>
-        Do you want to search for places in your locality or anywhere for various hobbies you are interested in? Check out the "SEARCH PLACES" page. <br>
-        Not just that, At HobbyU we let you build a diverse community of hobbyists with various interests. To understand better
-        about the community you are part of don't forget to Checkout the ANALYTICS page. <br><p>
+<section class="banner-area relative" id="home" data-parallax="scroll" data-image-src="img/header-bg.jpg">
+    <div class="overlay-bg overlay"></div>
+    <div class="container">
+        <div class="row fullscreen  d-flex align-items-center justify-content-end">
+            <div class="banner-content col-lg-6 col-md-12">
+                <h1>
+                    Platform <br>
+                    <span>share, engage </span> and find <br>
+                    new  <span>Hobbies.</span>
+                </h1>
+                <a href="/find-your-hobby-place.html" class="btn btn-outline-light my-2 my-sm-0 text-uppercase circle">Check it!</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
 
-    <p><em>UPCOMING: Post you images at HobbyU and let us auto-generate hashtags for your images.</em></p>
-    
-    <p>We are <strong>CodeU Summer 2019, Team 50</strong>.
-        <em>Anushiya, Arunn,</em> and <em>Kugan</em> from Sri Lanka with our super cool PA <em>Anil.</em> More on the TEAM page. ;)</p>
+<section class="project-area section-gap" id="project">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-40 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">App Features</h1>
+                    <p>We encourage you, our community to be creative, to be positive and to keep sharing what you do!</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-works-carousel mt-40">
+                <div class="item">
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-map"></span>
+                            <h4>Hobby Search By Place</h4>
+                            <p>
+                                Search for places in your locality or anywhere for various hobbies you are interested in.
+                            </p>
+                            <a href="/find-your-hobby-place.html" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-list"></span>
+                            <h4>Feed</h4>
+                            <p>
+                                You can now post updates as texts or even images. Analyzing the sentiment of the post is on us.
+                            </p>
+                            <a href="/feed.html" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-smile"></span>
+                            <h4>Sentiment Analysis</h4>
+                            <p>
+                                Analyzing the sentiment and spread positivity and make the world a better place.
+                            </p>
+                            <a href="/feed.html" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-picture"></span>
+                            <h4>Image Analysis</h4>
+                            <p>
+                                arun add any appropiate captions. arun add any appropiate captions.arun add any a
+                            </p>
+                            <a href="#" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
 
-    <p> <strong>Reach out to any of the team members with your feedback and we'd love to add more and more features, 
-        to make this platform a better community for YOU!!</strong><p>
-</main>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-volume-high"></span>
+                            <h4>Text To Speech</h4>
+                            <p>
+                                If you're lazy to read all those post-updates, let us read out all of them for you with one button click. :)
+                            </p>
+                            <a href="/find-your-hobby-place.html" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-chart-bars"></span>
+                            <h4>Analytics</h4>
+                            <p>
+                                To understand better about the community you are part of Checkout the ANALYTICS page.
+                            </p>
+                            <a href="/feed.html" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                        <div class="sigle-service col-lg-3 col-md-6">
+                            <span class="lnr lnr-user"></span>
+                            <h4>Customize Profile</h4>
+                            <p>
+                                One touch Login & Easily customizable profile ,You can add NickNames, Statuses.
+                            </p>
+                            <a href="#" class="genric-btn primary-border circle arrow">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="generic-banner relative">
+    <div class="container">
+        <div class="row height align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="generic-banner-content">
+                    <h2 class="text-white">Hey Hobbyists!</h2>
+                    <p class="text-white">HobbyU is a one-stop platform to share, engage and even to find new Hobbies.<br>
+                        We encourage you, our community to be creative, to be positive and to keep sharing what you do!<br><br>
+
+                        You can create a account simply by using your Google Account, and then add NickNames, Statuses and customize y our profile, for the next time you visit.
+                        You can now post updates as texts or even images. Analyzing the sentiment of the post is on us.Always remember spread positivity and make the world a better place.<br>
+                        And if you're lazy to read all those post-updates, let us read out all of them for you with one button click. :)
+                        Do you want to search for places in your locality or anywhere for various hobbies you are interested in? Check out the "SEARCH PLACES" page.
+                        Not just that, At HobbyU we let you build a diverse community of hobbyists with various interests. To understand better about the community you are part of don't forget to Checkout the ANALYTICS page.<br><br>
+
+                        UPCOMING: Post you images at HobbyU and let us auto-generate hashtags for your images.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Start skill Area -->
+<section class="skill-area section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 skill-left">
+                <h1 class="text-white mb-30">Our Fields of Expertness</h1>
+                <p>
+                    inappropriate behavior is often laughed off as “boys will be <br> boys,” women face higher conduct
+                    standards especially in <br> the workplace. That’s why it’s crucial that.
+                </p>
+            </div>
+            <div class="col-lg-6 skill-right">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-4 col-md-4 single-skill">
+                        <div class="skill1 d-block mx-auto"></div>
+                        <h4>Wireframing</h4>
+                    </div>
+                    <div class="col-lg-4 col-md-4 single-skill">
+                        <div class="skill2 d-block mx-auto"></div>
+                        <h4>User Research</h4>
+                    </div>
+                    <div class="col-lg-4 col-md-4 single-skill">
+                        <div class="skill3 d-block mx-auto"></div>
+                        <h4>User Experience</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End skill Area -->
+
+
+<!-- Start team Area -->
+<section class="team-area section-gap" id="team">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">About CodeU Summer 2019, Team 50</h1>
+                    <p>Who are in extremely love with eco friendly system.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center d-flex align-items-center">
+            <div class="col-md-3 single-team">
+                <div class="thumb">
+                    <img class="img-fluid" src="img/anil.jpg" alt="">
+                </div>
+                <div class="meta-text mt-30 text-center">
+                    <h4>Anil Das</h4>
+                    <p><b>Project advisor</b> <br>I work in Google's cloud division.<br> I look forward to meeting you all <br> and helping you with your CodeU summer adventure.</p>
+                </div>
+            </div>
+            <div class="col-md-3 single-team">
+                <div class="thumb">
+                    <img class="img-fluid" src="img/kugan.jpg" alt="">
+                </div>
+                <div class="meta-text mt-30 text-center">
+                    <h4>Sathiyakugan Balakrishnanr</h4>
+                    <p><br>Summer Feelz: Fully Interesting.<br>
+                        Aspirational Hobby: Travel around the world and capture the amazing moments.<br>
+                        Ask me About: Composing Music. </p>
+                </div>
+            </div>
+            <div class="col-md-3 single-team">
+                <div class="thumb">
+                    <img class="img-fluid" src="img/arun.jpg" alt="">
+                </div>
+                <div class="meta-text mt-30 text-center">
+                    <h4>Arunn Thevapalan</h4>
+                    <p><br>Summer Feelz: Super motivated xD<br>
+                        Aspirational Hobby: Travel. And TV Shows.<br>
+                        Ask me About: Actually anything!</p>
+                </div>
+            </div>
+            <div class="col-md-3 single-team">
+                <div class="thumb">
+                    <img class="img-fluid" src="img/anushiya.jpg" alt="">
+                </div>
+                <div class="meta-text mt-30 text-center">
+                    <h4>Anushiya Thevapalan</h4>
+                    <p><br> Summer Feelz: Hangouts with friends<br>
+                        Aspirational Hobby: Making greeting cards<br>
+                        Ask me About: All questions welcomed </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End team Area -->
+
+
+<!-- Start testimonial Area -->
+<section class="testimonial-area relative section-gap">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row">
+            <div class="active-testimonial">
+                <div class="single-testimonial item d-flex flex-row">
+                    <div class="thumb">
+                        <img class="img-fluid" src="img/user1.png" alt="">
+                    </div>
+                    <div class="desc">
+                        <p>
+                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+                            scanner, speaker, projector, hardware.
+                        </p>
+                        <h4 mt-30>Mark Alviro Wiens</h4>
+                        <p>CEO at Google</p>
+                    </div>
+                </div>
+                <div class="single-testimonial item d-flex flex-row">
+                    <div class="thumb">
+                        <img class="img-fluid" src="img/user2.png" alt="">
+                    </div>
+                    <div class="desc">
+                        <p>
+                            Accessories Here you can find the best computer accessory for your laptop, monitor, printer,
+                            scanner, speaker, projector, hardware.
+                        </p>
+                        <h4 mt-30>Mark Alviro Wiens</h4>
+                        <p>CEO at Google</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End testimonial Area -->
+
+
+
+<!-- start footer Area -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">We are CodeU-19-Team 50</p>
+    </div>
+    <!-- /.container -->
+</footer>
+<!-- End footer Area -->
+
+<script src="js/homepage/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="js/homepage/vendor/bootstrap.min.js"></script>
+<script src="js/homepage/jquery.ajaxchimp.min.js"></script>
+<script src="js/homepage/parallax.min.js"></script>
+<script src="js/homepage/owl.carousel.min.js"></script>
+<script src="js/homepage/jquery.sticky.js"></script>
+<script src="js/homepage/jquery.DonutWidget.min.js"></script>
+<script src="js/homepage/jquery.magnific-popup.min.js"></script>
+<script src="js/homepage/main.js"></script>
 </body>
 </html>
