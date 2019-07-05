@@ -73,7 +73,7 @@ function loadNavigation() {
 
 function loadContent() {
     const navigationbar = document.getElementById('navigation-bar');
-    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c233b;">
         <div class="container">
         <a class="navbar-brand" href="/">HOME</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
