@@ -72,24 +72,26 @@ function fetchMessages() {
             messageContainer.innerHTML += '';
         }
         var userPromises = [];
-        var users = [];
+        var dict = {};
 
         messages.forEach((message) => {
             const url = '/about?user=' + message.user;
-            userPromises.push(fetch(url)
-                .then(res => {
-                    return res.json();
-                })
-                .then(res => {
-                    users.push(res)
-                }));
+            if (dict[message.user]==undefined){
+                userPromises.push(fetch(url)
+                    .then(res => {
+                        return res.json();
+                    })
+                    .then(res => {
+                        dict[message.user]=res;
+                    }));
+            }
         });
 
 
         Promise.all(userPromises).then(values => {
-            values.forEach((userPromise, index) => {
+            messages.forEach((message) => {
                 //setting the variables to html elements.
-                const messageDiv = buildMessageDiv(messages[index], users[index],loginStatusGlobal);
+                const messageDiv = buildMessageDiv(message,  dict[message.user],loginStatusGlobal);
                 messageContainer.appendChild(messageDiv);
             });
         });
