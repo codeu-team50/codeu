@@ -31,6 +31,7 @@ public class Message {
     private long timestamp;
     private double score;
     private List<String> likes;
+    private List<String> imageLabels;
 
 
 
@@ -94,4 +95,10 @@ public class Message {
     }
 
     public List<String> getLikes() { return likes; }
+
+    public List<String> getImageLabels() {
+        return imageLabels; }
+
+    public void setImageLabels(List<String> imageLabels) {
+        this.imageLabels = imageLabels; }
 }

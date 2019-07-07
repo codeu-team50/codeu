@@ -32,12 +32,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                     <img src="" id="message-imageUrl" class="hidden">
                     </div>
                     <div id="message-hashtags">
-                        <span class="badge badge-primary">JavaScript</span>
-                        <span class="badge badge-primary">Android</span>
-                        <span class="badge badge-primary">PHP</span>
-                        <span class="badge badge-primary">Node.js</span>
-                        <span class="badge badge-primary">Ruby</span>
-                        <span class="badge badge-primary">Python</span>
+                   
                     </div>
                 </div>
 
@@ -50,6 +45,14 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
 
 
     messageDiv.innerHTML+= htmlString.trim();
+
+    if(message.imageLabels!=null){
+        message_hashtags= messageDiv.querySelector("#message-hashtags");
+        var hashtagsStr='';
+        for (var label in message.imageLabels) {
+            hashtagsStr+=`<span class="badge badge-primary" style="margin-left: 5px">`+message.imageLabels[label]+`</span>`;
+        }
+        message_hashtags.innerHTML=hashtagsStr; }
 
     message_text= messageDiv.querySelector("#message-text");
     message_text.innerHTML= message.text;
