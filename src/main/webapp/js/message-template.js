@@ -50,7 +50,14 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         message_hashtags= messageDiv.querySelector("#message-hashtags");
         var hashtagsStr='';
         for (var label in message.imageLabels) {
-            hashtagsStr+=`<span class="badge badge-primary" style="margin-left: 5px">`+message.imageLabels[label]+`</span>`;
+            url=''
+            if (typeof parameterUsername == 'undefined'){
+                url=url+'/feed.html?tag='+message.imageLabels[label];
+            }
+            else {
+                url=url+'/user-page.html?user='+parameterUsername+'&tag='+message.imageLabels[label];
+            }
+            hashtagsStr+=`<a href="`+url+`" class="badge badge-primary" style="margin-left: 5px">#`+message.imageLabels[label]+`</a>`;
         }
         message_hashtags.innerHTML=hashtagsStr; }
 
