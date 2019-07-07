@@ -51,9 +51,6 @@ public class Datastore {
         messageEntity.setProperty("score", message.getScore());
         messageEntity.setProperty("imageLabels", message.getImageLabels());
         datastore.put(messageEntity);
-
-
-
     }
 
     /**
@@ -161,6 +158,9 @@ public class Datastore {
                 if (entity.hasProperty("likes")) {
                     List<String>likes=(List<String>) entity.getProperty("likes");
                     message.setLikes(likes);
+                }
+                if (entity.hasProperty("imageLabels")) {
+                    message.setImageLabels((List<String>) entity.getProperty("imageLabels"));
                 }
 
                 messages.add(message);

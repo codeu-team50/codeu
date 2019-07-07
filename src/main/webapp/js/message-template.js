@@ -50,7 +50,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         message_hashtags= messageDiv.querySelector("#message-hashtags");
         var hashtagsStr='';
         for (var label in message.imageLabels) {
-            hashtagsStr+=`<span class="badge badge-primary">`+label`</span>`;
+            hashtagsStr+=`<span class="badge badge-primary" style="margin-left: 5px">`+message.imageLabels[label]+`</span>`;
         }
         message_hashtags.innerHTML=hashtagsStr; }
 

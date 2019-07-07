@@ -27,8 +27,8 @@ import com.google.cloud.vision.v1.*;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.Message;
 import com.google.gson.Gson;
-import com.google.cloud.language.v1.Document; 
-import com.google.cloud.language.v1.LanguageServiceClient; 
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
 
 
@@ -59,7 +59,6 @@ import static java.lang.System.out;
 public class MessageServlet extends HttpServlet {
 
     private Datastore datastore;
-    private List<String> str_imageLabels;
 
 
     @Override
@@ -68,15 +67,11 @@ public class MessageServlet extends HttpServlet {
     }
 
 
-
-
     /**
-
      * Returns the BlobKey that points to the file uploaded by the user, or null if the user didn't upload a file.
-
      */
 
-    private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName){
+    private BlobKey getBlobKey(HttpServletRequest request, String formInputElementName) {
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
@@ -84,7 +79,7 @@ public class MessageServlet extends HttpServlet {
 
 
         // User submitted form without selecting a file, so we can't get a BlobKey. (devserver)
-        if(blobKeys == null || blobKeys.isEmpty()) {
+        if (blobKeys == null || blobKeys.isEmpty()) {
             return null;
         }
 
@@ -112,11 +107,9 @@ public class MessageServlet extends HttpServlet {
 
 
     /**
-
      * Blobstore stores files as binary data. This function retrieves the
-
+     * <p>
      * binary data stored at the BlobKey parameter.
-
      */
 
     private byte[] getBlobBytes(BlobKey blobKey) throws IOException {
@@ -148,11 +141,9 @@ public class MessageServlet extends HttpServlet {
 
 
     /**
-
      * Uses the Google Cloud Vision API to generate a list of labels that apply to the image
-
+     * <p>
      * represented by the binary data stored in imgBytes.
-
      */
 
     private List<EntityAnnotation> getImageLabels(byte[] imgBytes) throws IOException {
@@ -183,12 +174,10 @@ public class MessageServlet extends HttpServlet {
 
 
     /**
-
      * Returns a URL that points to the uploaded file.
-
      */
 
-    private String getUploadedUrlForBlobKey(BlobKey blobKey){
+    private String getUploadedUrlForBlobKey(BlobKey blobKey) {
         ImagesService imagesService = ImagesServiceFactory.getImagesService();
         ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
         return imagesService.getServingUrl(options);
@@ -244,7 +233,7 @@ public class MessageServlet extends HttpServlet {
         String regex = "(https?://\\S+\\.(png|jpg|jpeg|gif))";
         String replacement = "<img src=\"$1\" />";
         text = text.replaceAll(regex, replacement);
-text = text.replaceAll(regex, replacement);
+        text = text.replaceAll(regex, replacement);
         //Getting the sentiment scores
         Document doc = Document.newBuilder()
                 .setContent(text).setType(Document.Type.PLAIN_TEXT).build();
@@ -255,50 +244,34 @@ text = text.replaceAll(regex, replacement);
 
         // Get the URL of the image that the user uploaded to Blobstore.
         String imageUrl = getUploadedFileUrl(request, "image");
-        Message message = new Message(user,text,score);
-        if(imageUrl!=null) {
+        Message message = new Message(user, text, score);
+        if (imageUrl != null) {
+            // Get the BlobKey that points to the image uploaded by the user.
+            BlobKey blobKey = getBlobKey(request, "image");
+
+
+            // Get the URL of the image that the user uploaded.
+            String image_Url = getUploadedUrlForBlobKey(blobKey);
+            List<String> str_imageLabels = new ArrayList<>();
+
+            // Get the labels of the image that the user uploaded.
+            byte[] blobBytes = getBlobBytes(blobKey);
+            List<EntityAnnotation> imageLabels = getImageLabels(blobBytes);
+
+
+            for (EntityAnnotation label : imageLabels) {
+                str_imageLabels.add(label.getDescription());
+            }
+
             message.setImageUrl(imageUrl);
-            datastore.storeMessage(message);
             message.setImageLabels(str_imageLabels);
-        }
-        else {
+            datastore.storeMessage(message);
+        } else {
             datastore.storeMessage(message);
         }
         response.sendRedirect("/user-page.html?user=" + user);
 
-
-        // Get the BlobKey that points to the image uploaded by the user.
-
-        BlobKey blobKey = getBlobKey(request, "image");
-
-
-        // User didn't upload a file, so render an error message.
-
-//        if(blobKey == null) {
-//
-//            out.println("Please upload an image file.");
-//
-//            return;
-//
-//        }
-
-
-        // Get the URL of the image that the user uploaded.
-        String image_Url = getUploadedUrlForBlobKey(blobKey);
-
-
-        // Get the labels of the image that the user uploaded.
-        byte[] blobBytes = getBlobBytes(blobKey);
-        List<EntityAnnotation> imageLabels = getImageLabels(blobBytes);
-
-
-        for (EntityAnnotation label : imageLabels) {
-            str_imageLabels.add(label.getDescription()); }
-
-
-
     }
-
 
 
 }
