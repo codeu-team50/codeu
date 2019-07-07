@@ -53,7 +53,11 @@ function showMessageFormIfViewingSelf() {
 
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
-    const url = '/messages?user=' + parameterUsername;
+    var url = '/messages?user=' + parameterUsername;
+    const tag = urlParams.get('tag');
+    if (tag!=null){
+        url=url+"&tag="+tag;
+    }
     var loginStatusGlobal;
     fetch('/login-status')
         .then((response) => {

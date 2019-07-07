@@ -16,7 +16,12 @@ function showMessageFormIfViewingSelf() {
 
 // Fetch messages and add them to the page.
 function fetchMessages() {
-    const url = '/feed';
+    var url = '/feed';
+    const urlParams = new URLSearchParams(window.location.search);
+    const tag = urlParams.get('tag');
+    if (tag!=null){
+        url=url+"?tag="+tag;
+    }
     var loginStatusGlobal;
     fetch('/login-status')
         .then((response) => {

@@ -200,11 +200,22 @@ public class MessageServlet extends HttpServlet {
             return;
         }
 
-        List<Message> messages = datastore.getMessages(user);
-        Gson gson = new Gson();
-        String json = gson.toJson(messages);
+        String tag = request.getParameter("tag");
+        if (tag != null && !tag.equals("")) {
+            List<Message> messages = datastore.getMessagesForTags(user,tag);
+            Gson gson = new Gson();
+            String json = gson.toJson(messages);
+            response.getWriter().println(json);
+            return;
+        }else {
+            List<Message> messages = datastore.getMessages(user);
+            Gson gson = new Gson();
+            String json = gson.toJson(messages);
+            response.getWriter().println(json);
+        }
 
-        response.getWriter().println(json);
+
+
     }
 
     /**

@@ -22,6 +22,9 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
@@ -66,6 +69,28 @@ public class Datastore {
                         .addSort("timestamp", SortDirection.DESCENDING);
         return getMessagesForQuery(query);
     }
+
+    /**
+     * Gets messages posted by a specific user.
+     *
+     * @return a list of messages posted by the user, or empty list if user has never posted a
+     * message. List is sorted by time descending.
+     */
+    public List<Message> getMessagesForTags(String user, String tag) {
+
+        Filter imageLabelsFilter =
+                new FilterPredicate("imageLabels", FilterOperator.EQUAL, tag);
+        Query.Filter userFilter =
+                new FilterPredicate("user", FilterOperator.EQUAL, user);
+        Query.Filter compositeFilter =
+                CompositeFilterOperator.and(imageLabelsFilter, userFilter);
+        Query query =
+                new Query("Message")
+                        .setFilter(compositeFilter)
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        return getMessagesForQuery(query);
+    }
+
 
     /**
      * Returns the total number of messages for all users.
@@ -128,6 +153,14 @@ public class Datastore {
     /* Fetch all messages*/
     public List<Message> getAllMessages() {
         Query query = new Query("Message")
+                .addSort("timestamp", SortDirection.DESCENDING);
+        return getMessagesForQuery(query);
+    }
+
+    /* Fetch all messages*/
+    public List<Message> getAllMessagesForTag(String tag) {
+        Query query = new Query("Message")
+                .setFilter(new Query.FilterPredicate("imageLabels", FilterOperator.EQUAL, tag))
                 .addSort("timestamp", SortDirection.DESCENDING);
         return getMessagesForQuery(query);
     }
@@ -258,5 +291,6 @@ public class Datastore {
         }
         return markers;
     }
+
 
 }
