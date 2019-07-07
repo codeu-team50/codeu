@@ -50,6 +50,9 @@ public class Datastore {
         messageEntity.setProperty("timestamp", message.getTimestamp());
         messageEntity.setProperty("score", message.getScore());
         datastore.put(messageEntity);
+
+        messageEntity.setProperty("imageLabels", message.getImageLabels());
+
     }
 
     /**
