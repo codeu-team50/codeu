@@ -2,6 +2,24 @@
 $(document).ready(function(){
 
     loadNavigation();
+
+    function checkLoginButton() {
+
+        fetch('/login-status')
+            .then((response) => {
+                return response.json();
+            })
+            .then((loginStatus) => {
+                if (loginStatus.isLoggedIn) {
+                    var login_btn_banner_area = document.getElementById('login-btn-banner-area');
+                    login_btn_banner_area.innerHTML="Your Page";
+                    login_btn_banner_area.href="user-page.html?user="+loginStatus.username;
+                }
+            });
+    }
+    checkLoginButton();
+
+
 	"use strict";
 
 	var window_width 	 = $(window).width(),
