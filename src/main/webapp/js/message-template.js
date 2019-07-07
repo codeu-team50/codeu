@@ -47,11 +47,12 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     messageDiv.innerHTML+= htmlString.trim();
 
     if(message.imageLabels!=null){
-        message_hashtags= messageDiv.querySelector("#message-hashtags"); var hastagsStr='';
+        message_hashtags= messageDiv.querySelector("#message-hashtags");
+        var hashtagsStr='';
         for (var label in message.imageLabels) {
-            hastagsStr+=`<span class="badge badge-primary">`+label`</span>`;
+            hashtagsStr+=`<span class="badge badge-primary">`+label`</span>`;
         }
-        message_hashtags.innerHTML=hastagsStr; }
+        message_hashtags.innerHTML=hashtagsStr; }
 
     message_text= messageDiv.querySelector("#message-text");
     message_text.innerHTML= message.text;
