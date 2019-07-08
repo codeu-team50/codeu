@@ -135,7 +135,7 @@ public class Datastore {
         Entity userEntity = results.asSingleEntity();
 
         if (userEntity == null) {
-            return new User(null, null);
+            return new User(email, null);
         }
 
         String aboutMe = (String) userEntity.getProperty("aboutMe");
@@ -204,6 +204,21 @@ public class Datastore {
             }
         }
         return messages;
+    }
+
+    public List<User> getlikedUsers(String messageId) {
+        Query query =
+                new Query("Message")
+                        .setFilter(new Query.FilterPredicate("id", FilterOperator.EQUAL, messageId));
+        PreparedQuery results = datastore.prepare(query);
+        Entity entity = results.asSingleEntity();
+        List<String> likes=(List<String>) entity.getProperty("likes");
+        List<User> users=new ArrayList<>();
+        for (String email : likes) {
+            User user=getUser(email);
+            users.add(user);
+        }
+        return users;
     }
 
     /** Likes a Message*/
@@ -291,6 +306,4 @@ public class Datastore {
         }
         return markers;
     }
-
-
 }

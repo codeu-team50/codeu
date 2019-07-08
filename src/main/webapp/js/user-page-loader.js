@@ -98,6 +98,9 @@ function fetchMessages() {
                 const messageDiv = buildMessageDiv(message,  dict[message.user],loginStatusGlobal);
                 messageContainer.appendChild(messageDiv);
             });
+            return "done"
+        }).then(res=>{
+            addModalViewforlikes();
         });
     });
 }
@@ -234,8 +237,6 @@ var loadFile = function (event) {
     };
     reader.readAsDataURL(event.target.files[0]);
 };
-
-
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {

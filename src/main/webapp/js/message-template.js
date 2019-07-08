@@ -94,7 +94,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                             <li id="message-like-li">
                                 <a style="cursor: pointer;" id="message-like-btn"  onClick="return likeMessage(this.id);" ><i class="fa fa-heart"></i> Like</a>
                                 <img  class="hidden" src="img/liked-img.png" id="likes-img" alt="">
-                                <span class="hidden" id="likes-count">25</span>
+                                <span class="hidden likescount" id="likes-count">25</span>
                             </li>
                         </ul>
                         <a id="text-to-speech"><i class="fa fa-volume-up"></i></a>
@@ -194,6 +194,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     if (!loginStatusGlobal.isLoggedIn){
         message_like_btn.style.pointerEvents="none";
     }
+    console.log("message");
     return messageDiv;
 }
 
@@ -256,4 +257,54 @@ function postLike(clicked_id,is_liked) {
         method: 'POST',
         body: params
     });
+}
+
+
+function addModalViewforlikes() {
+    const modal_body = document.getElementById('modal-body');
+    $(".likescount").on("click", function(){
+        var postid= $(this).siblings("a")[0].id;
+        const url='/like?id='+postid
+        fetch(url)
+            .then((response) => {
+                return response.json();
+            })
+            .then((users) => {
+                modal_body.innerHTML="";
+                users.forEach((user) => {
+                    modal_body.appendChild(createlikedUserTemplate(user));
+                    $('#likesModal').modal('show');
+                });
+            });
+    });
+}
+
+
+function createlikedUserTemplate(user) {
+    var userDiv = document.createElement('div');
+    userDiv.className += "d-flex justify-content-between align-items-center";
+    var htmlString=`
+            <div class="mr-2">
+                <img class="rounded-circle" width="30" id="message-dp" src="" alt="">
+            </div>
+            <div class="ml-2">
+                <div class="h5 m-0" id="message-nickname">Miracles Lee Cross</div>
+            </div><hr>`;
+    userDiv.innerHTML+= htmlString.trim();
+    var message_nickname=userDiv.querySelector("#message-nickname");
+
+    if (user.nickName == undefined) {
+        message_nickname.innerHTML=`<a style="font-size: 16px;" href="`+"/user-page.html?user="+user.email +`">`+user.email+`</a>`;
+    }
+    else {
+        message_nickname.innerHTML=`<a style="font-size: 16px;" href="`+"/user-page.html?user="+user.email +`">`+user.nickName+`</a>`;
+    }
+    //Sample Image url if the image is not there.
+    user_imageUrl=user.imageUrl;
+    if (user_imageUrl == undefined) {
+        user_imageUrl = 'https://www.iei.unach.mx/images/imagenes/profile.png';
+    }
+    var message_dp= userDiv.querySelector("#message-dp");
+    message_dp.src=user_imageUrl;
+    return userDiv;
 }

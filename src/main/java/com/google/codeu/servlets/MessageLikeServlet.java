@@ -4,6 +4,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.codeu.data.Datastore;
 import com.google.codeu.data.MyMarker;
+import com.google.codeu.data.User;
 import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
@@ -29,7 +30,11 @@ public class MessageLikeServlet extends HttpServlet {
     /** Responds with a JSON array containing marker data. */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        return;
+        String messageId = Jsoup.clean(request.getParameter("id"), Whitelist.none());
+        Gson gson = new Gson();
+        List<User> users=datastore.getlikedUsers(messageId);
+        String json = gson.toJson(users);
+        response.getOutputStream().println(json);
     }
 
     /** Accepts a POST request containing a new marker. */
