@@ -61,7 +61,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                             <img src="img/us-pic.png" id="message-dp" alt="">
                             <div class="usy-name">
                                 <h3 id="message-nickname" >John Doe</h3>
-                                <span><img src="img/clock.png" alt="" style="width: 13px;" id="message-time" >3 min ago</span>
+                                <span id="message-time"><img src="img/clock.png" alt="" style="width: 13px;" >3 min ago</span>
                             </div>
                         </div>
                         <div class="ed-opts">
@@ -123,7 +123,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     message_text.innerHTML= message.text;
 
     var message_time=messageDiv.querySelector("#message-time");
-    message_time.innerHTML=jQuery.timeago(new Date((message.timestamp)));                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
+    message_time.innerText=jQuery.timeago(new Date((message.timestamp)));                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
 
     var message_score= messageDiv.querySelector("#message-score");
     message_score_icon= messageDiv.querySelector("#message-score-icon");
