@@ -70,7 +70,6 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
                                     <a class="dropdown-item" href="#">Save</a>
                                     <a class="dropdown-item" href="#">Hide</a>
                                     <a class="dropdown-item" href="#">Report</a>
@@ -92,10 +91,10 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                     </div>
                     <div class="job-status-bar">
                         <ul class="like-com">
-                            <li id="message-like-li" onClick="likeMessage(this.id)"  >
-                                <a onclick="return false;" id="message-like-btn"  href=''><i class="fa fa-heart"></i> Like</a>
-                                <img src="img/liked-img.png" alt="">
-                                <span id="likes-count">25</span>
+                            <li id="message-like-li">
+                                <a style="cursor: pointer;" id="message-like-btn"  onClick="return likeMessage(this.id);" ><i class="fa fa-heart"></i> Like</a>
+                                <img  class="hidden" src="img/liked-img.png" id="likes-img" alt="">
+                                <span class="hidden" id="likes-count">25</span>
                             </li>
                         </ul>
                         <a id="text-to-speech"><i class="fa fa-volume-up"></i></a>
@@ -172,16 +171,18 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         image_card.remove();
     }
 
-
-    var message_like_li= messageDiv.querySelector("#message-like-li");
-    var message_like_btn= message_like_li.querySelector('#message-like-btn');
-    var message_likes_count= message_like_li.querySelector('#likes-count');
-    message_like_li.id= message.id;
+    var message_like_btn= messageDiv.querySelector("#message-like-btn");
+    var message_like_li= message_like_btn.parentNode;
+    var message_likes_count= message_like_li.querySelector("#likes-count");
+    var message_likes_img= message_like_li.querySelector("#likes-img");
+    message_like_btn.id= message.id;
 
     if(message.likes==null){
         message_likes_count.innerText=0;
     }
     else {
+        message_likes_count.classList.remove('hidden');
+        message_likes_img.classList.remove('hidden');
         if( message.likes.indexOf(loginStatusGlobal.username) > -1){
             message_like_btn.classList.add("active");
             message_likes_count.innerText=message.likes.length;
@@ -199,17 +200,28 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
 
 function likeMessage(clicked_id)
 {
-    var message_like_li=document.getElementById(clicked_id);
-    var message_like_btn= message_like_li.querySelector('#message-like-btn');
+    var message_like_btn= document.getElementById(clicked_id);
+    var message_like_li=message_like_btn.parentNode;
     var message_likes_count= message_like_li.querySelector('#likes-count');
+    var message_likes_img= message_like_li.querySelector('#likes-img');
     var count= parseInt(message_likes_count.innerText);
+
 
     if (message_like_btn.classList.contains("active")){
         postLike(clicked_id,false);
         message_like_btn.classList.remove("active");
         message_likes_count.innerText=count-1;
+
+        if(count-1==0){
+            message_likes_count.classList.add('hidden');
+            message_likes_img.classList.add('hidden');
+        }
     }
     else {
+        if(count==0){
+            message_likes_count.classList.remove('hidden');
+            message_likes_img.classList.remove('hidden');
+        }
         postLike(clicked_id,true);
         message_like_btn.classList.add("active");
         message_likes_count.innerText=count+1;

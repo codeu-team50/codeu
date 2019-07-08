@@ -428,20 +428,20 @@ section {
     display: inline-block;
     margin-right: 15px;
 }
-.like-com li a {
+.like-com li a:not([href]) {
     color: #b2b2b2;
     font-size: 14px;
     float: left;
     margin-top: 6px;
     margin-right: 5px;
 }
-.like-com li a:hover {
+.like-com li a:not([href]):hover {
     color: #e44d3a;
 }
-.like-com li a.active {
+.like-com li a:not([href]):active {
     color: #e44d3a;
 }
-.like-com li a i {
+.like-com li a:not([href]) i {
     margin-right: 2px;
     font-size: 17px;
     position: relative;
@@ -484,8 +484,6 @@ section {
     position: relative;
     top: 3px;
 }
-
-
 
 /* ============= top-profiles ============ */
 
@@ -571,6 +569,7 @@ section {
     text-align: center;
     font-weight: 600;
     margin-left: -25px;
+    cursor: pointer;
 }
 .like-com li .com {
     position: relative;
