@@ -69,7 +69,7 @@ function fetchMessages() {
     }).then((response) => {
         return response.json();
     }).then((messages) => {
-        const messageContainer = document.getElementById('message-container');
+        const messageContainer = document.getElementById('message-posts');
         if (messages.length == 0) {
             messageContainer.innerHTML += '<p>This user has no posts yet.</p>';
         } else {
@@ -234,6 +234,7 @@ var loadFile = function (event) {
     };
     reader.readAsDataURL(event.target.files[0]);
 };
+
 
 
 /** Fetches data and populates the UI of the page. */

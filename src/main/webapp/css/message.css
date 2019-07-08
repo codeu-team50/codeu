@@ -1,0 +1,594 @@
+/* ============== DEFAULT BORDER RADIUS =========== */
+.post-st ul li a,
+.post-bar,
+.bk-links li i,
+.user-profy ul li a,
+.posty,
+.post-project-fields form input,
+.post-project-fields form textarea,
+.post-project-fields form select,
+.post-project-fields form ul li button,
+.post-project-fields form ul li a,
+.message-btn a,
+.user-profile-ov,
+.portfolio-gallery-sec,
+.file-submit,
+.billing-method,
+.lt-sec > a,
+.add-billing-method,
+.payment_methods form button,
+.payment_methods form input,
+.company-up-info ul li a,
+.search-box form input,
+.filter-dd form input,
+.filter-dd form select,
+.conversation-box,
+.save-stngs ul li button,
+.cp-field input,
+.cp-field textarea,
+.accept-req,
+.mf-field input,
+.mf-field button,
+.pagination li .page-link,
+.post_comment_sec form textarea,
+.post_comment_sec form button,
+.next-prev > a {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.wrapper {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+.overlay:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 99;
+}
+
+
+html, body, div, span, applet, object, iframe, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    font-family: 'Source Sans Pro', sans-serif;
+    overflow-x: hidden;
+    font-weight: 400;
+    background-color: #f2f2f2;
+}
+ol, ul {
+    list-style: none;
+}
+a:hover {
+    text-decoration: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+button {
+    outline: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+* {
+    margin:0;
+    padding: 0;
+}
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+a:hover {
+    color: #fff;
+}
+button {
+    outline: none;
+}
+input {
+    outline: none;
+}
+textarea {
+    outline: none;
+}
+section {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+
+.post_topbar img {
+    float: left;
+}
+
+.like-com  img {
+     float: left;
+ }
+
+/* ============ post-topbar =========== */
+
+.post-topbar {
+    float: left;
+    width: 100%;
+    padding: 23px 20px;
+    background-color: #fff;
+    border-top: 4px solid #e44d3a;
+    border-left: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    -webkit-box-shadow: 0 0 1px rgba(0,0,0,0.24);
+    -moz-box-shadow: 0 0 1px rgba(0,0,0,0.24);
+    -ms-box-shadow: 0 0 1px rgba(0,0,0,0.24);
+    -o-box-shadow: 0 0 1px rgba(0,0,0,0.24);
+    box-shadow: 0 0 1px rgba(0,0,0,0.24);
+    margin-bottom: 20px;
+}
+.user-picy {
+    float: left;
+    width: 50px;
+}
+.user-picy img {
+    width: 100%;
+    object-fit: cover;
+}
+.post-st {
+    float: right;
+    margin-top: 5px;
+}
+.post-st ul li {
+    display: inline-block;
+    margin-right: 6px;
+}
+.post-st ul li:last-child {
+    margin-right: 0;
+}
+.post-st ul li a {
+    color: #b2b2b2;
+    font-size: 16px;
+    display: inline-block;
+    background-color: #e5e5e5;
+    height: 40px;
+    padding: 0 15px;
+    line-height: 40px;
+    font-weight: 500;
+}
+.post-st ul li a:hover,
+.post-st ul li a.active {
+    background-color: #e44d3a;
+    color: #fff;
+}
+
+
+/* ================ posts-section ================== */
+
+.posts-section {
+    float: left;
+    width: 100%;
+}
+.post-bar {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+}
+.post_topbar {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 20px 20px 15px 20px;
+}
+.usy-dt {
+    float: left;
+}
+.usy-dt img {
+    width: 50px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+    border-radius: 100px;
+}
+.ed-opts {
+    float: right;
+    position: relative;
+}
+.ed-opts > a {
+    color: #b2b2b2;
+    font-size: 30px;
+    float: right;
+    position: relative;
+    left: 13px;
+}
+.ed-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 130px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+    -ms-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+    -o-box-shadow: 0 0 10px rgba(0,0,0,0.28);
+    box-shadow: 0 0 10px rgba(0,0,0,0.28);
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+}
+.ed-options.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+}
+.ed-options li {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.ed-options li:last-child {
+    margin-bottom: 0;
+}
+.ed-options li a {
+    color: #686868;
+    font-size: 14px;
+    font-weight: 600;
+}
+.ed-opts > a:hover {
+    color: #e44d3a;
+}
+.usy-name {
+    float: left;
+    margin-left: 10px;
+}
+.usy-name h3 {
+    color: #000000;
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 6px;
+    margin-top: 2px;
+}
+.usy-name span {
+    color: #b2b2b2;
+    font-size: 14px;
+}
+.usy-name img {
+    margin-top: 2px;
+    margin-right: 6px;
+}
+.post_topbar i {
+    /*	position: absolute;
+        top: 20px;
+        right: 5px;
+        color: #b2b2b2;
+        font-size: 30px;
+    */}
+
+.descp {
+    float: left;
+    margin-top: 3px;
+}
+.descp li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.descp li span {
+    color: #b2b2b2;
+    font-size: 14px;
+    float: left;
+}
+.descp li img {
+    margin-right: 5px;
+}
+.bk-links {
+    float: right;
+}
+.bk-links li {
+    display: inline-block;
+    margin-right: 7px;
+}
+.bk-links li:last-child {
+    margin-right: 0;
+}
+.bk-links li i {
+    color: #fff;
+    font-size: 24px;
+    width: 30px;
+    height: 30px;
+    background-color: #53d690;
+    text-align: center;
+    line-height: 30px;
+}
+.bk-links li i.la-envelope {
+    background-color: #e44d3a;
+}
+.bid_now {
+    color: #fff;
+    background-color: #51a5fb;
+    text-transform: capitalize;
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    position: relative;
+    top: -3px;
+}
+.bid_now:hover {
+    color: #fff;
+}
+
+
+/* ============== job_descp ============ */
+
+.job_descp {
+    float: left;
+    width: 100%;
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.job_descp h3 {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.job-dt {
+    float: left;
+    width: 100%;
+    margin-bottom: 22px;
+}
+.job-dt li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.job-dt li a {
+    color: #fff;
+    background-color: #53d690;
+    text-transform: capitalize;
+    padding: 5px 13px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+}
+.job-dt li span {
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+}
+.job_descp > p {
+    color: #05050a;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+.job_descp > p a {
+    color: #e44d3a;
+    font-weight: 600;
+}
+
+
+/* ========== job-status-bar ========== */
+
+.job-status-bar {
+    float: left;
+    width: 100%;
+    padding: 15px 20px;
+}
+.like-com {
+    float: left;
+}
+.like-com li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.like-com li a {
+    color: #b2b2b2;
+    font-size: 14px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 5px;
+}
+.like-com li a:hover {
+    color: #e44d3a;
+}
+.like-com li a.active {
+    color: #e44d3a;
+}
+.like-com li a i {
+    margin-right: 2px;
+    font-size: 17px;
+    position: relative;
+    top: 2px;
+}
+.like-com li span {
+    color: #ffffff;
+    font-size: 13px;
+    width: 30px;
+    height: 30px;
+    background-color: #e44d3a;
+    line-height: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+    float: left;
+    text-align: center;
+    font-weight: 600;
+    margin-left: -25px;
+}
+.like-com li .com {
+    position: relative;
+    top: -5px;
+}
+.like-com li .com img {
+    margin-right: 10px;
+}
+
+.job-status-bar > a {
+    float: right;
+    color: #b2b2b2;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.job-status-bar > a i {
+    font-size: 20px;
+    margin-right: 7px;
+    position: relative;
+    top: 3px;
+}
+
+
+
+/* ============= top-profiles ============ */
+
+.top-profiles {
+    float: left;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+}
+.pf-hd {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 20px;
+    position: relative;
+}
+.pf-hd h3 {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    float: left;
+}
+.pf-hd i {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 7px;
+    color: #b2b2b2;
+    font-size: 24px;
+}
+
+/* ========== job-status-bar ========== */
+
+.job-status-bar {
+    float: left;
+    width: 100%;
+    padding: 15px 20px;
+}
+.like-com {
+    float: left;
+}
+.like-com li {
+    display: inline-block;
+    margin-right: 15px;
+}
+.like-com li a {
+    color: #b2b2b2;
+    font-size: 14px;
+    float: left;
+    margin-top: 6px;
+    margin-right: 5px;
+}
+.like-com li a:hover {
+    color: #e44d3a;
+}
+.like-com li a.active {
+    color: #e44d3a;
+}
+.like-com li a i {
+    margin-right: 2px;
+    font-size: 17px;
+    position: relative;
+    top: 2px;
+}
+.like-com li span {
+    color: #ffffff;
+    font-size: 13px;
+    width: 30px;
+    height: 30px;
+    background-color: #e44d3a;
+    line-height: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+    float: left;
+    text-align: center;
+    font-weight: 600;
+    margin-left: -25px;
+}
+.like-com li .com {
+    position: relative;
+    top: -5px;
+}
+.like-com li .com img {
+    margin-right: 10px;
+}
+
+.job-status-bar > a {
+    float: right;
+    color: #b2b2b2;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.job-status-bar > a i {
+    font-size: 20px;
+    margin-right: 7px;
+    position: relative;
+    top: 3px;
+}
