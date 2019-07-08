@@ -54,7 +54,8 @@ function fetchMessages() {
                 const messageDiv = buildMessageDiv(messages[index], userPromise,loginStatusGlobal);
                 messageContainer.appendChild(messageDiv);
             });
-        });
+        }).then(res=>{
+            addModalViewforlikes();});
     });
 
 }
@@ -72,11 +73,12 @@ function fetchBlobstoreUrlAndShowMessageForm() {
         });
 }
 
-// Fetch data and populate the UI of the page.
 
+// Fetch data and populate the UI of the page.
 function buildUI() {
     fetchBlobstoreUrlAndShowMessageForm();
     showMessageFormIfViewingSelf();
     loadNavigation();
     fetchMessages();
+    addModalViewforlikes();
 }
