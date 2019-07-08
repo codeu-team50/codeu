@@ -115,3 +115,7 @@ input[type="file"] {
   line-height: .5;
   border-radius: .2rem;
 }
+
+.post-img{
+  width: 100%;
+}

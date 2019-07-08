@@ -42,13 +42,11 @@ function fetchMessages() {
 
         var userPromises = [];
 
-
         messages.forEach((message) => {
             const url = '/about?user=' + message.user;
             userPromises.push(fetch(url)
                 .then(res => {return res.json(); }));
         });
-
 
         Promise.all(userPromises).then(values => {
             values.forEach((userPromise, index) => {
@@ -73,8 +71,6 @@ function fetchBlobstoreUrlAndShowMessageForm() {
             messageForm.classList.remove('hidden');
         });
 }
-
-
 
 // Fetch data and populate the UI of the page.
 
