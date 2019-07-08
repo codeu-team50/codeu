@@ -55,7 +55,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
 
 
 
-    const htmlString=` <div class="card mb-4">
+    var htmlString=` <div class="card mb-4">
                     <div class="post_topbar">
                         <div class="usy-dt">
                             <img src="img/us-pic.png" id="message-dp" alt="">
@@ -70,7 +70,6 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <div class="h6 dropdown-header">Configuration</div>
                                     <a class="dropdown-item" href="#">Save</a>
                                     <a class="dropdown-item" href="#">Hide</a>
                                     <a class="dropdown-item" href="#">Report</a>
@@ -81,9 +80,8 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                     </div>
                     <div class="job_descp">
                         <ul class="job-dt">
-                            <li><a href="#"  id="message-score" title=""><i id="message-score-icon" class="fa fa-smile-beam"></i> Neutral</a></li>
+                            <li id="message-score"></li>
                         </ul>
-
                         <p id="message-text" >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at. Etiam id magna sit amet</p>
                         <div class="card mb-4" id="image-card">
                         <img class="card-img-top" id="message-imageUrl" src="">
@@ -93,10 +91,10 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                     </div>
                     <div class="job-status-bar">
                         <ul class="like-com">
-                            <li>
-                                <a href="#"><i class="fa fa-heart"></i> Like</a>
-                                <img src="img/liked-img.png" alt="">
-                                <span id="likes-count">25</span>
+                            <li id="message-like-li">
+                                <a style="cursor: pointer;" id="message-like-btn"  onClick="return likeMessage(this.id);" ><i class="fa fa-heart"></i> Like</a>
+                                <img  class="hidden" src="img/liked-img.png" id="likes-img" alt="">
+                                <span class="hidden" id="likes-count">25</span>
                             </li>
                         </ul>
                         <a id="text-to-speech"><i class="fa fa-volume-up"></i></a>
@@ -121,39 +119,33 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         }
         message_hashtags.innerHTML=hashtagsStr; }
 
-    message_text= messageDiv.querySelector("#message-text");
+    var message_text= messageDiv.querySelector("#message-text");
     message_text.innerHTML= message.text;
 
-    message_username=messageDiv.querySelector("#message-username");
-
-    message_time=messageDiv.querySelector("#message-time");
+    var message_time=messageDiv.querySelector("#message-time");
     message_time.innerHTML=jQuery.timeago(new Date((message.timestamp)));                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
 
-    message_score= messageDiv.querySelector("#message-score");
+    var message_score= messageDiv.querySelector("#message-score");
     message_score_icon= messageDiv.querySelector("#message-score-icon");
 
     if(message.score<0){
-        message_score.innerHTML=`<i class="fa fa-frown"></i>   Negative (`+message.score.toFixed(2)+`)`;
+        message_score.innerHTML=`<a disabled href="" style="background-color:#e25454;" title=""><i class="fa fa-frown"></i>   Negative (`+message.score.toFixed(2)+`)</a>`;
     }else if(message.score==0){
-        message_score.innerHTML=`<i class="fa fa-meh"></i>   Neutral (`+message.score.toFixed(2)+`)`;
+        message_score.innerHTML=`<a disabled href="" style="background-color:#ccbb4a;"  title=""><i class="fa fa-meh"></i>   Neutral (`+message.score.toFixed(2)+`)</a>`;
     }else{
-        message_score.innerHTML=`<i class="fa fa-smile-beam"></i>   Positive (`+message.score.toFixed(2)+`)`;
+        message_score.innerHTML=`<a disabled href="" style="background-color:#53d690;" title=""><i class="fa fa-smile-beam"></i>   Positive (`+message.score.toFixed(2)+`)</a>`;
     }
 
 
-    speech_generator= messageDiv.querySelector("#text-to-speech");
+    var speech_generator= messageDiv.querySelector("#text-to-speech");
     speech_generator.addEventListener('click', () => {
         playAudio(message.text);
     });
 
-    message_dp= messageDiv.querySelector("#message-dp");
+    var message_dp= messageDiv.querySelector("#message-dp");
     user_imageUrl=user.imageUrl;
 
-
-    // message_like_btn= messageDiv.querySelector("#message-like_btn");
-    // message_like_btn.id= message.id;
-
-    message_nickname=messageDiv.querySelector("#message-nickname");
+    var message_nickname=messageDiv.querySelector("#message-nickname");
 
     if (user.nickName == undefined) {
         message_nickname.innerHTML=`<a href="`+"/user-page.html?user="+message.user +`">`+message.user+`</a>`;
@@ -179,55 +171,60 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
         image_card.remove();
     }
 
+    var message_like_btn= messageDiv.querySelector("#message-like-btn");
+    var message_like_li= message_like_btn.parentNode;
+    var message_likes_count= message_like_li.querySelector("#likes-count");
+    var message_likes_img= message_like_li.querySelector("#likes-img");
+    message_like_btn.id= message.id;
 
-    //
-    //
-    // if(message.likes==null){
-    //     message_like_btn.style.color='rgb(120, 144, 156)';
-    //     message_like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
-    //     message_like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
-    //     message_like_btn.getElementsByTagName('b')[0].innerText=0;
-    // }
-    // else {
-    //     if( message.likes.indexOf(loginStatusGlobal.username) > -1){
-    //         message_like_btn.style.color='rgb(233, 30, 99)';
-    //         message_like_btn.getElementsByTagName('i')[0].style.color='rgb(233, 30, 99)';
-    //         message_like_btn.getElementsByTagName('b')[0].style.color='rgb(233, 30, 99)';
-    //         message_like_btn.getElementsByTagName('b')[0].innerText=message.likes.length;
-    //     }
-    //     else {
-    //         message_like_btn.style.color='rgb(120, 144, 156)';
-    //         message_like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
-    //         message_like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
-    //         message_like_btn.getElementsByTagName('b')[0].innerText=message.likes.length;
-    //     }
-    // }
-    // if (!loginStatusGlobal.isLoggedIn){
-    //     message_like_btn.disabled = true;
-    // }
+    if(message.likes==null){
+        message_likes_count.innerText=0;
+    }
+    else {
+        message_likes_count.classList.remove('hidden');
+        message_likes_img.classList.remove('hidden');
+        if( message.likes.indexOf(loginStatusGlobal.username) > -1){
+            message_like_btn.classList.add("active");
+            message_likes_count.innerText=message.likes.length;
+        }
+        else {
+            message_likes_count.innerText=message.likes.length;
+        }
+    }
+    if (!loginStatusGlobal.isLoggedIn){
+        message_like_btn.style.pointerEvents="none";
+    }
     return messageDiv;
 }
 
 
 function likeMessage(clicked_id)
 {
-    var like_btn=document.getElementById(clicked_id);
-    var color =like_btn.style.color;
-    var count= parseInt(like_btn.getElementsByTagName('b')[0].innerText);
+    var message_like_btn= document.getElementById(clicked_id);
+    var message_like_li=message_like_btn.parentNode;
+    var message_likes_count= message_like_li.querySelector('#likes-count');
+    var message_likes_img= message_like_li.querySelector('#likes-img');
+    var count= parseInt(message_likes_count.innerText);
 
-    if (color=="rgb(120, 144, 156)"){
-        postLike(clicked_id,true);
-        like_btn.style.color='rgb(233, 30, 99)';
-        like_btn.getElementsByTagName('i')[0].style.color='rgb(233, 30, 99)';
-        like_btn.getElementsByTagName('b')[0].style.color='rgb(233, 30, 99)';
-        like_btn.getElementsByTagName('b')[0].innerText=count+1;
+
+    if (message_like_btn.classList.contains("active")){
+        postLike(clicked_id,false);
+        message_like_btn.classList.remove("active");
+        message_likes_count.innerText=count-1;
+
+        if(count-1==0){
+            message_likes_count.classList.add('hidden');
+            message_likes_img.classList.add('hidden');
+        }
     }
     else {
-        postLike(clicked_id,false);
-        like_btn.style.color='rgb(120, 144, 156)';
-        like_btn.getElementsByTagName('i')[0].style.color='rgb(120, 144, 156)';
-        like_btn.getElementsByTagName('b')[0].style.color='rgb(120, 144, 156)';
-        like_btn.getElementsByTagName('b')[0].innerText=count-1;
+        if(count==0){
+            message_likes_count.classList.remove('hidden');
+            message_likes_img.classList.remove('hidden');
+        }
+        postLike(clicked_id,true);
+        message_like_btn.classList.add("active");
+        message_likes_count.innerText=count+1;
     }
 }
 
