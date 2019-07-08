@@ -62,27 +62,27 @@ public class TextToSpeechServlet extends HttpServlet {
      // Select the type of audio file to return
     AudioConfig audioConfig = AudioConfig.newBuilder()
             .setAudioEncoding(AudioEncoding.MP3)
-            .build();  
+            .build();
 
       // Perform the text-to-speech request on the text input with the selected voice parameters and
     // audio file type.
     SynthesizeSpeechResponse synthesizeSpeechResponse = ttsClient.synthesizeSpeech(
             input, voice, audioConfig
-    );     
+    );
 
 
     // Get audio content from the API response.
     ByteString audioContents = synthesizeSpeechResponse.getAudioContent();
-   
+
     //set audio content for API Response
-   response.setContentType("audio/mpeg"); 
+   response.setContentType("audio/mpeg");
 
    try (
      ServletOutputStream output = response.getOutputStream();
      InputStream audioInput = audioContents.newInput(); // Placeholder!
-   ){ 
+   ){
      byte[] buffer = new byte[2048];
-     int bytesRead;    
+     int bytesRead;
      while ((bytesRead = audioInput.read(buffer)) != -1) {
         output.write(buffer, 0, bytesRead);
      }
