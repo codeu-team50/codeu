@@ -111,6 +111,16 @@ public class Datastore {
         return users;
     }
 
+    public List<User> getAllUsersDetails() {
+        Set<String> emails = getUsers();
+        List<User> users=new ArrayList<>();
+        for (String email : emails) {
+            User user=getUser(email);
+            users.add(user);
+        }
+        return users;
+    }
+
 
     /**
      * Stores the User in Datastore.
