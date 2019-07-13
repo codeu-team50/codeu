@@ -72,18 +72,20 @@ function loadNavigation() {
 }
 
 function loadContent() {
+    var url      = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+    var origin   = window.location.origin;
+    var path=url.replace(origin);
+
     const navigationbar = document.getElementById('navigation-bar');
     const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c233b;">
         <div class="container">
-        <a class="navbar-brand" href="/">HOME</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto" >
+                <li  class="nav-item">
+                    <a id="nav-li-home" class="nav-link" href="/">HOME</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#project">FEATURES</a>
+                    <a class="nav-link" id="feature_a" href="/#project">FEATURES</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
@@ -108,5 +110,26 @@ function loadContent() {
         </div>
     </nav>`;
     navigationbar.innerHTML += content;
+    setNavigation();
 
 }
+
+function setNavigation() {
+    // Get current path and find target link
+    var url      = window.location.href;
+    var origin   = window.location.origin;
+    var path = url.replace(origin,'');
+
+    if (path=="/"){
+        $("ul.navbar-nav a").on("click", function(){
+            $(this).addClass('active');
+            $("#nav-li-home").removeClass('active');
+        });
+    }
+    var target = $('nav a[href="'+path+'"]');
+    // Add active class to target link
+    target.addClass('active');
+
+
+}
+
