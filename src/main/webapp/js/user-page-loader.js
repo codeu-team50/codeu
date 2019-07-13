@@ -247,4 +247,5 @@ function buildUI() {
     fetchMessages();
     fetchAboutMe();
     initMap();
+    addButtonEventForDelete();
 }
