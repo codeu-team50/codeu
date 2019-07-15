@@ -16,12 +16,7 @@
 
 package com.google.codeu.data;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
@@ -270,6 +265,28 @@ public class Datastore {
             }
         }
     }
+
+    /** Delete Messages in Datastore. */
+    public String deleteMessages(String messageId,String user) {
+        try {
+            Key key = KeyFactory.createKey("Message", messageId);
+            Entity messageEntity=datastore.get(key);
+            String userActual = (String) messageEntity.getProperty("user");
+
+            if(userActual.equals(user)){
+                datastore.delete(key);
+                return "Done";
+            }
+            else {
+                return "User Mismatched";
+            }
+
+        }
+        catch (Exception e){
+            return "Error";
+        }
+    }
+
 
     /** Stores a marker in Datastore. */
     public void storeMarker(MyMarker marker) {

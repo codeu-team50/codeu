@@ -64,15 +64,13 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                                 <span id="message-time"><img src="img/clock.png" alt="" style="width: 13px;" >3 min ago</span>
                             </div>
                         </div>
-                        <div class="ed-opts">
+                        <div id="message-dropdown" class="ed-opts">
                             <div class="dropdown">
                                 <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-ellipsis-v"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                    <a class="dropdown-item" href="#">Save</a>
-                                    <a class="dropdown-item" href="#">Hide</a>
-                                    <a class="dropdown-item" href="#">Report</a>
+                                    <a id="message-delete"  onClick="return openModalViewforDelete(this.href);"  class="dropdown-item" href="#">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +123,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     var message_time=messageDiv.querySelector("#message-time");
     message_time.innerText=jQuery.timeago(new Date((message.timestamp)));                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
 
-    var message_score= messageDiv.querySelector("#message-score");
+    var message_score = messageDiv.querySelector("#message-score");
     message_score_icon= messageDiv.querySelector("#message-score-icon");
 
     if(message.score<0){
@@ -153,6 +151,8 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     else {
         message_nickname.innerHTML=`<a href="`+"/user-page.html?user="+message.user +`">`+user.nickName+`</a>`;
     }
+
+
 
     //Sample Image url if the image is not there.
     if (user_imageUrl == undefined) {
@@ -193,6 +193,15 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     }
     if (!loginStatusGlobal.isLoggedIn){
         message_like_btn.style.pointerEvents="none";
+    }else {
+        if(loginStatusGlobal.username==message.user) {
+            var message_delete = messageDiv.querySelector("#message-delete");
+            message_delete.href="/feed/delete?id="+message.id;
+        }
+        else {
+            var message_dropdown = messageDiv.querySelector("#message-dropdown");
+            message_dropdown.classList.add('hidden');
+        }
     }
     console.log("message");
     return messageDiv;
@@ -260,6 +269,12 @@ function postLike(clicked_id,is_liked) {
 }
 
 
+function openModalViewforDelete(href) {
+    document.getElementById("confirm-delete-btn").href=href;
+    $('#confirm-delete').modal('show');
+    return false;
+}
+
 function addModalViewforlikes() {
     const modal_body = document.getElementById('modal-body');
     $(".likescount").on("click", function(){
@@ -278,7 +293,6 @@ function addModalViewforlikes() {
             });
     });
 }
-
 
 function createlikedUserTemplate(user) {
     var userDiv = document.createElement('div');
@@ -307,4 +321,17 @@ function createlikedUserTemplate(user) {
     var message_dp= userDiv.querySelector("#message-dp");
     message_dp.src=user_imageUrl;
     return userDiv;
+}
+
+function addButtonEventForDelete() {
+    $("#confirm-delete-btn").on("click", function(){
+        const url=$(this).href;
+        fetch(url)
+            .then((response) => {
+                return response.text();
+            })
+            .then((res) => {
+                location.reload();
+            });
+    });
 }

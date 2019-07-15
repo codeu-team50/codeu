@@ -55,7 +55,9 @@ function fetchMessages() {
                 messageContainer.appendChild(messageDiv);
             });
         }).then(res=>{
-            addModalViewforlikes();});
+            addModalViewforlikes();
+        });
+
     });
 
 }
@@ -74,6 +76,7 @@ function fetchBlobstoreUrlAndShowMessageForm() {
 }
 
 
+
 // Fetch data and populate the UI of the page.
 function buildUI() {
     fetchBlobstoreUrlAndShowMessageForm();
@@ -81,4 +84,6 @@ function buildUI() {
     loadNavigation();
     fetchMessages();
     addModalViewforlikes();
+    addButtonEventForDelete();
+
 }
