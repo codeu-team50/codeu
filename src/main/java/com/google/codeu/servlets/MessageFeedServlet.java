@@ -40,7 +40,6 @@ public class MessageFeedServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String path = new URL(""+(request.getRequestURL())).getPath();
-        System.out.println(path);
         if(path.equals("/feed")){
             response.setContentType("application/json");
             String tag = request.getParameter("tag");
@@ -62,7 +61,6 @@ public class MessageFeedServlet extends HttpServlet {
         else if(path.equals("/feed/delete")) {
             UserService userService = UserServiceFactory.getUserService();
             if (userService.isUserLoggedIn()) {
-                System.out.println("inside");
                 String user = userService.getCurrentUser().getEmail();
                 try {
                     String messageId = Jsoup.clean(request.getParameter("id"), Whitelist.none());
@@ -78,7 +76,6 @@ public class MessageFeedServlet extends HttpServlet {
             }
         }
         else{
-            System.out.println("else");
             return;
         }
     }

@@ -34,6 +34,7 @@ import com.google.cloud.language.v1.Sentiment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,6 @@ import org.kefirsf.bb.BBProcessorFactory;
 import org.kefirsf.bb.TextProcessor;
 
 import static com.google.codeu.servlets.BlobstoreUploadUrlServlet.getUploadedFileUrl;
-import static java.lang.System.out;
 
 /**
  * Handles fetching and saving {@link Message} instances.
@@ -280,7 +280,16 @@ public class MessageServlet extends HttpServlet {
         } else {
             datastore.storeMessage(message);
         }
-        response.sendRedirect("/user-page.html?user=" + user);
+
+        String path = new URL(""+request.getHeader("referer")).getPath();
+        if(path.equals("/feed.html")){
+            response.sendRedirect("/feed.html");
+        }
+        else {
+            response.sendRedirect("/user-page.html?user=" + user);
+        }
+
+
 
     }
 
