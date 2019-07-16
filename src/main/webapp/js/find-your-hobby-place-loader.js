@@ -257,7 +257,9 @@ function postMarker(place) {
 
 function createAlert(message) {
     var alertmesssage = `<div id="alertmessage" class="alert alert-dark" role="alert">` + message + `</div>`;
-    document.getElementsByClassName('container')[0].insertAdjacentHTML("afterbegin", alertmesssage);
+    doc = new DOMParser().parseFromString(alertmesssage, "text/xml");
+
+    document.getElementById('container').insertAdjacentHTML("afterbegin", alertmesssage);
     var timePeriodInMs = 3000;
     setTimeout(function () {
             document.getElementById("alertmessage").style.display = "none";
