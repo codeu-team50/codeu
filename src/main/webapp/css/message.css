@@ -403,6 +403,7 @@ section {
     font-weight: 600;
 }
 .job_descp > p {
+    overflow-wrap: break-word;
     color: #05050a;
     font-size: 16px;
     line-height: 24px;
