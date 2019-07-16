@@ -58,8 +58,6 @@ limitations under the License.
 <header id="navigation-bar">
 </header>
 <div class="container">
-
-    <h1>Profile</h1>
     <div class="justify-content-center text-center">
         <form action="/about" onsubmit="return addForm();" id="about-me-form" method="POST"
               enctype='multipart/form-data'>
@@ -113,13 +111,13 @@ limitations under the License.
                             </ul>
                         </div>
                         <div class="card-body">
-                            <form action="/messages" id="msg-form" method="POST" enctype='multipart/form-data'>
+                            <form onchange="validateForm(this);"   action="/messages" id="msg-form" method="POST" enctype='multipart/form-data'>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="posts" role="tabpanel"
                                          aria-labelledby="posts-tab">
                                         <div class="form-group">
                                             <label class="sr-only" for="message">Post</label>
-                                            <textarea class="form-control" id="message" name="text" rows="3"
+                                            <textarea  onkeyup="validatetextarea(this);" class="form-control" id="message" name="text" rows="3"
                                                       placeholder="What are you thinking?"></textarea>
                                         </div>
                                         <div class="form-group">
@@ -144,7 +142,7 @@ limitations under the License.
                                 </div>
                                 <div class="btn-toolbar justify-content-between">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary">share</button>
+                                        <button disabled id="message-submit" type="submit" class="btn btn-primary">share</button>
                                     </div>
                                 </div>
                             </form>

@@ -238,6 +238,9 @@ var loadFile = function (event) {
     reader.readAsDataURL(event.target.files[0]);
 };
 
+
+
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
     loadNavigation();

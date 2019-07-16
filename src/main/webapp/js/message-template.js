@@ -335,3 +335,30 @@ function addButtonEventForDelete() {
             });
     });
 }
+
+function validateForm(form) {
+    var text= form["text"].value;
+    var image= form["image"].value;
+    var message_submit = document.getElementById("message-submit");
+    if ( text!= "" ||image != "") {
+        message_submit.disabled = false;
+    }
+    else {
+        message_submit.disabled = true;
+    }
+}
+
+function validatetextarea(input) {
+    var inputval= input.value;
+    var message_submit = document.getElementById("message-submit");
+    if ( inputval!= "") {
+        message_submit.disabled = false;
+    }else {
+        if(document.getElementById("customFile").value == ""){
+            message_submit.disabled = true;
+        }
+        else {
+            message_submit.disabled = false;
+        }
+    }
+}

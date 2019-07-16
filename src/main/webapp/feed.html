@@ -40,72 +40,76 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 gedf-main" id="message-container">
-        <!-- Message posting form. -->
-                    <div class="card gedf-card hidden" id="message-form">
-                        <div class="card-header">
-                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
-                                       aria-controls="posts" aria-selected="true">Tell your
-                                        stories</a>
-                                </li>
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link" id="images-tab" data-toggle="tab" role="tab"
-                                       aria-controls="images"
-                                       aria-selected="false" href="#images">Images</a>
-                                </li> -->
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <form action="/messages" id="msg-form" method="POST" enctype='multipart/form-data'>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="posts" role="tabpanel"
-                                         aria-labelledby="posts-tab">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="message">Post</label>
-                                            <textarea class="form-control" id="message" name="text" rows="3"
-                                                      placeholder="What are you thinking?"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="image"
-                                                       id="customFile">
-                                                <label class="custom-file-label" for="customFile">Share Photo</label>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                                        <div class="form-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="image"
-                                                       id="customFile">
-                                                <label class="custom-file-label" for="customFile">Upload image</label>
-                                            </div>
-                                        </div>
-                                        <div class="py-4"></div>
-                                    </div> -->
+            <!-- Message posting form. -->
+            <div class="card gedf-card hidden" id="message-form">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
+                               aria-controls="posts" aria-selected="true">Tell your
+                                stories</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" id="images-tab" data-toggle="tab" role="tab"
+                               aria-controls="images"
+                               aria-selected="false" href="#images">Images</a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <form onchange="validateForm(this);" action="/messages" id="msg-form" method="POST"
+                          enctype='multipart/form-data'>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel"
+                                 aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <label class="sr-only" for="message">Post</label>
+                                    <textarea onkeyup="validatetextarea(this);" class="form-control" id="message"
+                                              name="text" rows="3"
+                                              placeholder="What are you thinking?"></textarea>
                                 </div>
-                                <div class="btn-toolbar justify-content-between">
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary">share</button>
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image"
+                                               id="customFile">
+                                        <label class="custom-file-label" for="customFile">Share Photo</label>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-        <!--End of message posting form-->
-                    <div class="posts-section"  id="message-posts">
 
-                    </div>
-                    <!-- Posts snippets will be loaded if there are any posts. -->
+                            </div>
+                            <!-- <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image"
+                                               id="customFile">
+                                        <label class="custom-file-label" for="customFile">Upload image</label>
+                                    </div>
+                                </div>
+                                <div class="py-4"></div>
+                            </div> -->
+                        </div>
+                        <div class="btn-toolbar justify-content-between">
+                            <div class="btn-group">
+                                <button disabled id="message-submit" type="submit" class="btn btn-primary">share
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--End of message posting form-->
+            <div class="posts-section" id="message-posts">
+
+            </div>
+            <!-- Posts snippets will be loaded if there are any posts. -->
         </div>
     </div>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="likesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="likesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
