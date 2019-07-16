@@ -19,7 +19,7 @@
  * already logged in.
  */
 function addLoginOrLogoutLinkToNavigation() {
-    const navigationElement = document.getElementById('navigation');
+    const navigationElement = document.getElementById('nav-buttons');
     if (!navigationElement) {
         console.warn('Navigation element not found!');
         return;
@@ -31,14 +31,14 @@ function addLoginOrLogoutLinkToNavigation() {
         })
         .then((loginStatus) => {
             if (loginStatus.isLoggedIn) {
-                navigationElement.appendChild(createListItem(createLink(
-                    '/user-page.html?user=' + loginStatus.username, 'Your Page')));
+                navigationElement.innerHTML+=createLink(
+                    '/user-page.html?user=' + loginStatus.username, 'Your Page');
 
-                navigationElement.appendChild(
-                    createListItem(createLink('/logout', 'Logout')));
+                navigationElement.innerHTML+=
+                    createLink('/logout', 'Logout');
             } else {
-                navigationElement.appendChild(
-                    createListItem(createLink('/login', 'Login')));
+                navigationElement.innerHTML+=
+                    createLink('/login', 'Login');
             }
         });
 }
@@ -48,11 +48,7 @@ function addLoginOrLogoutLinkToNavigation() {
  * @param {Element} childElement
  * @return {Element} li element
  */
-function createListItem(childElement) {
-    const listItemElement = document.createElement('li');
-    listItemElement.innerHTML+=childElement;
-    return listItemElement;
-}
+
 
 /**
  * Creates an anchor element.
@@ -61,7 +57,7 @@ function createListItem(childElement) {
  * @return {Element} Anchor element
  */
 function createLink(url, text) {
-    const linkElement = `<a class="btn btn-outline-light my-2 my-sm-0" href="`+url+`">`+text+`</a>`;
+    const linkElement = `<a style="margin-right: 4px" class="btn btn-outline-light my-2 my-sm-0" href="` + url + `">` + text + `</a>`;
     return linkElement;
 }
 
@@ -72,13 +68,16 @@ function loadNavigation() {
 }
 
 function loadContent() {
-    var url      = window.location.href;     // Returns full URL (https://example.com/path/example.html)
-    var origin   = window.location.origin;
-    var path=url.replace(origin);
+    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+    var origin = window.location.origin;
+    var path = url.replace(origin);
 
     const navigationbar = document.getElementById('navigation-bar');
     const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c233b;">
         <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto" >
                 <li  class="nav-item">
@@ -103,6 +102,8 @@ function loadContent() {
                     <a class="nav-link" href="/#team">TEAM</a>
                 </li>            
             </ul>
+            <form class="form-inline" id="nav-buttons">
+            </form>
         </div>
         </div>
     </nav>`;
@@ -113,17 +114,17 @@ function loadContent() {
 
 function setNavigation() {
     // Get current path and find target link
-    var url      = window.location.href;
-    var origin   = window.location.origin;
-    var path = url.replace(origin,'');
+    var url = window.location.href;
+    var origin = window.location.origin;
+    var path = url.replace(origin, '');
 
-    if (path=="/"){
-        $("ul.navbar-nav a").on("click", function(){
+    if (path == "/") {
+        $("ul.navbar-nav a").on("click", function () {
             $(this).addClass('active');
             $("#nav-li-home").removeClass('active');
         });
     }
-    var target = $('nav a[href="'+path+'"]');
+    var target = $('nav a[href="' + path + '"]');
     // Add active class to target link
     target.addClass('active');
 
