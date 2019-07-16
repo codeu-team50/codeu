@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="utf-8">
 <head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+
     <title>Hello Google Maps</title>
 
     <!-- Custom styles for this template-->
@@ -27,13 +32,13 @@
 <div class="container" id="container">
     <h3 style="margin-bottom: 10px">Search Places According to your Hobby</h3>
     <div class="row">
-        <div class="col">
+        <div class="col-lg-3 col-sm-12">
             <div class="form-group">
                 <label for="autocomplete">Enter Your City</label>
                 <input type="text" class="form-control" id="autocomplete" placeholder=""Enter your Location">
             </div>
             <div class="form-group">
-                <label for="hobby">Hobby</label>
+                <label for="hobby">Select Your Hobby</label>
                 <select class="form-control" id="hobby">
                     <option value="">Select</option>
                     <option value="attractions">Travelling</option>
@@ -43,11 +48,11 @@
                 </select>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-sm-12">
             <div id="map"></div>
             <p>This page shows a Google Map!</p>
         </div>
-        <div class="col">
+        <div class="col-lg-3 d-none d-md-block">
             <div class="listing">
                 <table class="table table-striped"  id="resultsTable">
                     <tbody id="results">
