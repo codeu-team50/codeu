@@ -68,12 +68,12 @@ function loadNavigation() {
 }
 
 function loadContent() {
-    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html) #0c233b
     var origin = window.location.origin;
     var path = url.replace(origin);
 
     const navigationbar = document.getElementById('navigation-bar');
-    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c233b;">
+    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c3766;">
         <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
