@@ -87,13 +87,13 @@ function loadContent() {
                     <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/community.html">COMMUNITY</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/find-your-hobby-place.html">EXPLORE</a>
                 </li>
                 <li class="nav-item">
                       <a class="nav-link" href="/charts.html">ANALYTICS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/community.html">COMMUNITY</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/#team">TEAM</a>
