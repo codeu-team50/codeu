@@ -65,6 +65,17 @@ public class Datastore {
         return getMessagesForQuery(query);
     }
 
+    public PreparedQuery getMessagesPagnition(String user) {
+        Query query =
+                new Query("Message")
+                        .setFilter(new Query.FilterPredicate("user", FilterOperator.EQUAL, user))
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        return datastore.prepare(query);
+    }
+
+
+
+
     /**
      * Gets messages posted by a specific user.
      *
@@ -85,6 +96,59 @@ public class Datastore {
                         .addSort("timestamp", SortDirection.DESCENDING);
         return getMessagesForQuery(query);
     }
+    public PreparedQuery getMessagesForTagsPagnition(String user, String tag) {
+
+        Filter imageLabelsFilter =
+                new FilterPredicate("imageLabels", FilterOperator.EQUAL, tag);
+        Query.Filter userFilter =
+                new FilterPredicate("user", FilterOperator.EQUAL, user);
+        Query.Filter compositeFilter =
+                CompositeFilterOperator.and(imageLabelsFilter, userFilter);
+        Query query =
+                new Query("Message")
+                        .setFilter(compositeFilter)
+                        .addSort("timestamp", SortDirection.DESCENDING);
+        return datastore.prepare(query);
+    }
+
+    public List<Object> getMessagesforPreparedQuery(QueryResultList<Entity> results){
+        List<Object> messages = new ArrayList<>();
+        for (Entity entity : results) {
+            try {
+                String idString = entity.getKey().getName();
+                UUID id = UUID.fromString(idString);
+
+                String user = (String) entity.getProperty("user");
+                String text = (String) entity.getProperty("text");
+                long timestamp = (long) entity.getProperty("timestamp");
+                double score = (double) entity.getProperty("score");
+
+                Message message = new Message(id, user, text, score);
+                message.setTimestamp(timestamp);
+
+                if (entity.hasProperty("imageUrl")) {
+                    String imageUrl = (String) entity.getProperty("imageUrl");
+                    message.setImageUrl(imageUrl);
+                }
+
+                if (entity.hasProperty("likes")) {
+                    List<String>likes=(List<String>) entity.getProperty("likes");
+                    message.setLikes(likes);
+                }
+                if (entity.hasProperty("imageLabels")) {
+                    message.setImageLabels((List<String>) entity.getProperty("imageLabels"));
+                }
+
+                messages.add(message);
+            } catch (Exception e) {
+                System.err.println("Error reading message.");
+                System.err.println(entity.toString());
+                e.printStackTrace();
+            }
+        }
+        return messages;
+    }
+
 
 
     /**
@@ -157,18 +221,36 @@ public class Datastore {
 
     /* Fetch all messages*/
     public List<Message> getAllMessages() {
+
         Query query = new Query("Message")
                 .addSort("timestamp", SortDirection.DESCENDING);
         return getMessagesForQuery(query);
     }
 
-    /* Fetch all messages*/
+
+    /* Fetch all messages Pagnition*/
+    public PreparedQuery getAllMessagesPagnition() {
+        Query query = new Query("Message")
+                .addSort("timestamp", SortDirection.DESCENDING);
+        return datastore.prepare(query);
+    }
+
+    /* Fetch all message with specfic tag Pagnition*/
     public List<Message> getAllMessagesForTag(String tag) {
         Query query = new Query("Message")
                 .setFilter(new Query.FilterPredicate("imageLabels", FilterOperator.EQUAL, tag))
                 .addSort("timestamp", SortDirection.DESCENDING);
         return getMessagesForQuery(query);
     }
+
+    /* Fetch all messages*/
+    public PreparedQuery getAllMessagesForTagPagnition(String tag) {
+        Query query = new Query("Message")
+                .setFilter(new Query.FilterPredicate("imageLabels", FilterOperator.EQUAL, tag))
+                .addSort("timestamp", SortDirection.DESCENDING);
+        return datastore.prepare(query);
+    }
+
 
 
     private  List<Message> getMessagesForQuery(Query query){
