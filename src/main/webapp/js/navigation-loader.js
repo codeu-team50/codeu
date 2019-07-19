@@ -94,7 +94,10 @@ function loadContent() {
                 </li>
                 <li class="nav-item">
                       <a class="nav-link" href="/charts.html">ANALYTICS</a>
-                </li>           
+                </li>
+                <li class="nav-item">
+                      <a class="nav-link" href="/team.html">TEAM</a>
+                </li>            
             </ul>
             <form class="form-inline" id="nav-buttons">
             </form>
