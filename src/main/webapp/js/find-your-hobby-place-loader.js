@@ -105,21 +105,14 @@ function setAutocompleteHobby() {
     }
 
     var hobby = document.getElementById('hobby').value;
-    var types = [];
-
-    if (hobby == "attractions") {
-        types.push('natural_feature', 'zoo', 'amusement_park');
-    } else if (hobby == "garden") {
-        types.push();
-    } else if (hobby == "sports") {
-        types.push('gym', 'stadium');
-    } else if (hobby == "reading") {
-        types.push('library');
+    if (hobby != "") {
+        clearResults();
+        clearMarkers();
+        search([hobby]);
+    }else{
+        clearResults();
+        clearMarkers();
     }
-
-    clearResults();
-    clearMarkers();
-    search(hobby, types);
 }
 
 function dropMarker(i) {
