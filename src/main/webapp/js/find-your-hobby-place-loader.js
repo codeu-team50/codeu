@@ -53,7 +53,7 @@ function onPlaceChanged() {
 }
 
 // Search for hotels in the selected city, within the viewport of the map.
-function search(hobby, types) {
+function search(types) {
     var search = {
         query: hobby,
         bounds: map.getBounds(),
