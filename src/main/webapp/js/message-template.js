@@ -193,6 +193,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
     }
     if (!loginStatusGlobal.isLoggedIn){
         message_like_btn.style.pointerEvents="none";
+        message_dropdown.classList.add('hidden');
     }else {
         if(loginStatusGlobal.username==message.user) {
             var message_delete = messageDiv.querySelector("#message-delete");
