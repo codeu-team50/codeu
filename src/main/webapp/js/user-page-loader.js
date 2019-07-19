@@ -78,6 +78,8 @@ function fetchMessages(cursor) {
         return response.json();
     }).then((messages) => {
         const messageContainer = document.getElementById('message-posts');
+        const message_loading = document.getElementById('message-loading');
+        message_loading.classList.add('hidden');
         if (messages.length == 0) {
             messageContainer.innerHTML += '<p>This user has no posts yet.</p>';
         } else {
