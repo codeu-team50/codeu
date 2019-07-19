@@ -191,15 +191,16 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
             message_likes_count.innerText=message.likes.length;
         }
     }
+    var message_dropdown = messageDiv.querySelector("#message-dropdown");
     if (!loginStatusGlobal.isLoggedIn){
         message_like_btn.style.pointerEvents="none";
+        message_dropdown.classList.add('hidden');
     }else {
         if(loginStatusGlobal.username==message.user) {
             var message_delete = messageDiv.querySelector("#message-delete");
             message_delete.href="/feed/delete?id="+message.id;
         }
         else {
-            var message_dropdown = messageDiv.querySelector("#message-dropdown");
             message_dropdown.classList.add('hidden');
         }
     }

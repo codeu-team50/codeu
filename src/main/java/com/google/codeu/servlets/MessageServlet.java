@@ -18,6 +18,7 @@ package com.google.codeu.servlets;
 
 import com.github.rjeschke.txtmark.Processor;
 import com.google.appengine.api.blobstore.*;
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
@@ -59,7 +60,7 @@ import static com.google.codeu.servlets.BlobstoreUploadUrlServlet.getUploadedFil
 public class MessageServlet extends HttpServlet {
 
     private Datastore datastore;
-
+    static final int PAGE_SIZE = 5;
 
     @Override
     public void init() {
@@ -202,16 +203,56 @@ public class MessageServlet extends HttpServlet {
 
         String tag = request.getParameter("tag");
         if (tag != null && !tag.equals("")) {
-            List<Message> messages = datastore.getMessagesForTags(user,tag);
+            // Request is invalid, return empty array
+            response.setContentType("application/json");
+            FetchOptions fetchOptions = FetchOptions.Builder.withLimit(PAGE_SIZE);
+
+            // If this servlet is passed a cursor parameter, let's use it.
+            String startCursor = request.getParameter("cursor");
+            if (startCursor != null) {
+                fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor));
+            }
+
+            QueryResultList<Entity> results;
+            PreparedQuery pq = datastore.getMessagesForTagsPagnition(user,tag);
+            try {
+                results = pq.asQueryResultList(fetchOptions);
+            } catch (IllegalArgumentException e) {
+                response.sendRedirect("/feed.html");
+                return;
+            }
+            String cursorString = results.getCursor().toWebSafeString();
+            response.setContentType("application/json");
+            List<Object> messages =datastore.getMessagesforPreparedQuery(results);
+            messages.add(cursorString);
             Gson gson = new Gson();
             String json = gson.toJson(messages);
-            response.getWriter().println(json);
-            return;
+            response.getOutputStream().println(json);
         }else {
-            List<Message> messages = datastore.getMessages(user);
+            response.setContentType("application/json");
+            FetchOptions fetchOptions = FetchOptions.Builder.withLimit(PAGE_SIZE);
+
+            // If this servlet is passed a cursor parameter, let's use it.
+            String startCursor = request.getParameter("cursor");
+            if (startCursor != null) {
+                fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor));
+            }
+
+            QueryResultList<Entity> results;
+            PreparedQuery pq = datastore.getMessagesPagnition(user);
+            try {
+                results = pq.asQueryResultList(fetchOptions);
+            } catch (IllegalArgumentException e) {
+                response.sendRedirect("/feed.html");
+                return;
+            }
+            String cursorString = results.getCursor().toWebSafeString();
+            response.setContentType("application/json");
+            List<Object> messages =datastore.getMessagesforPreparedQuery(results);
+            messages.add(cursorString);
             Gson gson = new Gson();
             String json = gson.toJson(messages);
-            response.getWriter().println(json);
+            response.getOutputStream().println(json);
         }
 
 

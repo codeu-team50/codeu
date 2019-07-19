@@ -37,7 +37,7 @@
 <body onload="buildUI();">
 <header id="navigation-bar">
 </header>
-<div class="container">
+<div class="container" id="container">
     <div class="row justify-content-center">
         <div class="col-md-8 gedf-main" id="message-container">
             <!-- Message posting form. -->
@@ -89,7 +89,9 @@
             </div>
             <!--End of message posting form-->
             <div class="posts-section" id="message-posts">
-
+                <div id="message-loading"   class="row justify-content-center" >
+                    <img  src="img/loading.gif" width="80px">
+                </div>
             </div>
             <!-- Posts snippets will be loaded if there are any posts. -->
         </div>
