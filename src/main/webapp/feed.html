@@ -4,11 +4,11 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
+    <link rel="shortcut icon" href="img/logo.png">
     <!-- meta character set -->
     <meta charset="UTF-8">
 
-    <title>Message Feed</title>
+    <title>Feed | WanderLusts</title>
 
     <!-- Fontawesome styles for Icons-->
     <link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css">
@@ -37,7 +37,7 @@
 <body onload="buildUI();">
 <header id="navigation-bar">
 </header>
-<div class="container">
+<div class="container" id="container">
     <div class="row justify-content-center">
         <div class="col-md-8 gedf-main" id="message-container">
             <!-- Message posting form. -->
@@ -77,16 +77,6 @@
                                 </div>
 
                             </div>
-                            <!-- <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                                <div class="form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="image"
-                                               id="customFile">
-                                        <label class="custom-file-label" for="customFile">Upload image</label>
-                                    </div>
-                                </div>
-                                <div class="py-4"></div>
-                            </div> -->
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
@@ -99,7 +89,9 @@
             </div>
             <!--End of message posting form-->
             <div class="posts-section" id="message-posts">
-
+                <div id="message-loading"   class="row justify-content-center" >
+                    <img  src="img/loading.gif" width="80px">
+                </div>
             </div>
             <!-- Posts snippets will be loaded if there are any posts. -->
         </div>

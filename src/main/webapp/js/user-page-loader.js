@@ -18,6 +18,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
+var cursorCurrent;
+var flagfetch=true;
+var fetchproceed=true;
+
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
 if (!parameterUsername) {
     window.location.replace('/');
@@ -52,9 +56,13 @@ function showMessageFormIfViewingSelf() {
 }
 
 /** Fetches messages and add them to the page. */
-function fetchMessages() {
+function fetchMessages(cursor) {
     var url = '/messages?user=' + parameterUsername;
     const tag = urlParams.get('tag');
+
+    if (cursor) {
+        url = `${url}&cursor=${cursor}`;
+    }
     if (tag!=null){
         url=url+"&tag="+tag;
     }
@@ -70,15 +78,26 @@ function fetchMessages() {
         return response.json();
     }).then((messages) => {
         const messageContainer = document.getElementById('message-posts');
+        const message_loading = document.getElementById('message-loading');
+        message_loading.classList.add('hidden');
         if (messages.length == 0) {
             messageContainer.innerHTML += '<p>This user has no posts yet.</p>';
         } else {
             messageContainer.innerHTML += '';
         }
-        var userPromises = [];
-        var dict = {};
 
-        messages.forEach((message) => {
+        var userPromises = [];
+        if (messages.length==1){
+            flagfetch=false;
+        }
+        cursorCurrent=messages[messages.length-1];
+
+
+        var dict = {};
+        messages.forEach((message,value) => {
+            if (value==messages.length-1){
+                return;
+            }
             const url = '/about?user=' + message.user;
             if (dict[message.user]==undefined){
                 userPromises.push(fetch(url)
@@ -91,15 +110,17 @@ function fetchMessages() {
             }
         });
 
-
         Promise.all(userPromises).then(values => {
-            messages.forEach((message) => {
+            messages.forEach((message,index) => {
+                if (index==messages.length-1){
+                    return;
+                }
                 //setting the variables to html elements.
                 const messageDiv = buildMessageDiv(message,  dict[message.user],loginStatusGlobal);
                 messageContainer.appendChild(messageDiv);
             });
-            return "done"
         }).then(res=>{
+            fetchproceed=true;
             addModalViewforlikes();
         });
     });
@@ -240,6 +261,33 @@ var loadFile = function (event) {
 
 
 
+var loadMore = function() {
+    if (flagfetch==true && fetchproceed==true){
+        fetchproceed=false;
+        fetchMessages(cursorCurrent);
+    }
+}
+
+function addListnerForInfiniteScroll() {
+    // Detect when scrolled to bottom.
+    window.addEventListener('scroll', function() {
+        // Fetch variables
+        var scrollTop = $(document).scrollTop();
+        var windowHeight = $(window).height();
+        var bodyHeight = $(document).height() - windowHeight;
+        var scrollPercentage = (scrollTop / bodyHeight);
+
+        // if the scroll is more than 90% from the top, load more content.
+        if(scrollPercentage > 0.8) {
+            if (cursorCurrent!=undefined && flagfetch==true && fetchproceed==true){
+                fetchproceed==false;
+                loadMore();
+            }
+        }
+
+    });
+}
+
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
@@ -247,7 +295,8 @@ function buildUI() {
     setPageTitle();
     fetchBlobstoreUrlAndShowMessageForm();
     showMessageFormIfViewingSelf();
-    fetchMessages();
+    fetchMessages("");
+    addListnerForInfiniteScroll();
     fetchAboutMe();
     initMap();
     addButtonEventForDelete();

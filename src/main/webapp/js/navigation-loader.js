@@ -68,12 +68,12 @@ function loadNavigation() {
 }
 
 function loadContent() {
-    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html)
+    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html) #0c233b
     var origin = window.location.origin;
     var path = url.replace(origin);
 
     const navigationbar = document.getElementById('navigation-bar');
-    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0c233b;">
+    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:rgba(4, 26, 48, 0.8);">
         <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
@@ -84,22 +84,19 @@ function loadContent() {
                     <a id="nav-li-home" class="nav-link" href="/">HOME</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="feature_a" href="/#project">FEATURES</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/find-your-hobby-place.html">SEARCH PLACES</a>
-                </li>
-                <li class="nav-item">
-                      <a class="nav-link" href="/charts.html">ANALYTICS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/community.html">COMMUNITY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/#team">TEAM</a>
+                    <a class="nav-link" href="/find-your-travel-place.html">EXPLORE</a>
+                </li>
+                <li class="nav-item">
+                      <a class="nav-link" href="/charts.html">ANALYTICS</a>
+                </li>
+                <li class="nav-item">
+                      <a class="nav-link" href="/team.html">TEAM</a>
                 </li>            
             </ul>
             <form class="form-inline" id="nav-buttons">
