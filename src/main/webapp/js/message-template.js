@@ -301,7 +301,7 @@ function createlikedUserTemplate(user) {
     userDiv.className += "d-flex justify-content-between align-items-center";
     var htmlString=`
             <div class="mr-2">
-                <img class="rounded-circle" width="30" id="message-dp" src="" alt="">
+                <img class="rounded-circle" width="30" height="30" id="message-dp" src="" alt="">
             </div>
             <div class="ml-2">
                 <div class="h5 m-0" id="message-nickname">Miracles Lee Cross</div>
