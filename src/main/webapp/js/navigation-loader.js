@@ -81,22 +81,22 @@ function loadContent() {
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto" >
                 <li  class="nav-item">
-                    <a id="nav-li-home" class="nav-link" href="/">HOME</a>
+                    <a id="nav-li-home" class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/feed.html">PUBLIC FEED</a>
+                    <a class="nav-link" href="/feed.html">Feed</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/community.html">COMMUNITY</a>
+                    <a class="nav-link" href="/community.html">Community</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/find-your-travel-place.html">EXPLORE</a>
+                    <a class="nav-link" href="/find-your-travel-place.html">Explore</a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="/charts.html">ANALYTICS</a>
+                      <a class="nav-link" href="/charts.html">Analytics</a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="/team.html">TEAM</a>
+                      <a class="nav-link" href="/team.html">Team</a>
                 </li>            
             </ul>
             <form class="form-inline" id="nav-buttons">
