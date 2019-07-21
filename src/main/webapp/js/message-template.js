@@ -95,7 +95,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
                                 <span class="hidden likescount" id="likes-count">25</span>
                             </li>
                         </ul>
-                        <a id="text-to-speech"><i class="fa fa-volume-up"></i></a>
+                        <a style="cursor: pointer;" ><i id="text-to-speech" class="fa fa-volume-up"></i></a>
                     </div>
                 </div>`;
 
@@ -137,6 +137,7 @@ function buildMessageDiv(message,user,loginStatusGlobal) {
 
     var speech_generator= messageDiv.querySelector("#text-to-speech");
     speech_generator.addEventListener('click', () => {
+        console.log("added");
         playAudio(message.text);
     });
 
@@ -300,7 +301,7 @@ function createlikedUserTemplate(user) {
     userDiv.className += "d-flex justify-content-between align-items-center";
     var htmlString=`
             <div class="mr-2">
-                <img class="rounded-circle" width="30" id="message-dp" src="" alt="">
+                <img class="rounded-circle" width="30" height="30" id="message-dp" src="" alt="">
             </div>
             <div class="ml-2">
                 <div class="h5 m-0" id="message-nickname">Miracles Lee Cross</div>

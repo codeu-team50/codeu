@@ -73,7 +73,7 @@ function loadContent() {
     var path = url.replace(origin);
 
     const navigationbar = document.getElementById('navigation-bar');
-    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:rgba(4, 26, 48, 0.8);">
+    const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:rgba(0, 23, 70, 0.8);">
         <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
