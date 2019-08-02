@@ -47,6 +47,22 @@ function onPlaceChanged() {
     if (place.geometry) {
         map.panTo(place.geometry.location);
         map.setZoom(15);
+        if (document.getElementById('hobby').value == '') {
+            createAlert("Please select your Preference!");
+        }
+        else{
+            console.log("Changed");
+            var hobby = document.getElementById('hobby').value;
+            if (hobby != "") {
+                clearResults();
+                clearMarkers();
+                search([hobby]);
+            }else{
+                console.log("Changed");
+                clearResults();
+                clearMarkers();
+            }
+        }
     } else {
         document.getElementById('autocomplete').placeholder = 'Enter a city';
     }
@@ -114,6 +130,10 @@ function setAutocompleteHobby() {
         clearMarkers();
     }
 }
+
+
+
+
 
 function dropMarker(i) {
     return function () {
@@ -221,10 +241,13 @@ function buildIWContent(place) {
         document.getElementById('iw-website-row').style.display = 'none';
     }
     var save_place_btn = document.getElementById('save-place-btn');
-    save_place_btn.onclick = () => {
-        postMarker(place);
-        createAlert("Place successfully Saved!");
-    };
+    if (save_place_btn !=null){
+        save_place_btn.onclick = () => {
+            postMarker(place);
+            createAlert("Place successfully Saved!");
+        };
+    }
+
 }
 
 
@@ -240,7 +263,6 @@ function postMarker(place) {
     params.append('lng', lng);
     params.append('hobby', hobby);
     params.append('id', id);
-    console.log(id);
     fetch('/markers', {
         method: 'POST',
         body: params
