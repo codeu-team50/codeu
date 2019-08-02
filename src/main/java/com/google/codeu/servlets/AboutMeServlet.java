@@ -47,7 +47,7 @@ public class AboutMeServlet extends HttpServlet {
 
         if (user == null || user.equals("")) {
             // Request is invalid, return empty response
-            return;
+            return ;
         }
 
         User userData = datastore.getUser(user);
@@ -83,11 +83,19 @@ public class AboutMeServlet extends HttpServlet {
         String imageUrl = getUploadedFileUrl(request, "image");
         User user = new User(userEmail, aboutMe);
         user.setNickName(nickName);
+
+
         if (imageUrl != null) {
            user.setImageUrl(imageUrl);
             datastore.storeUser(user);
         } else {
-            datastore.storeUser(user);
+            if (datastore.getUser(userEmail).getImageUrl()!=null){
+                user.setImageUrl(datastore.getUser(userEmail).getImageUrl());
+                datastore.storeUser(user);
+            }
+            else{
+                datastore.storeUser(user);
+            }
         }
 
         response.sendRedirect("/user-page.html?user=" + userEmail);
