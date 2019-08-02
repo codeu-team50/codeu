@@ -41,6 +41,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 gedf-main" id="message-container">
             <!-- Message posting form. -->
+
             <div class="card gedf-card hidden" id="message-form">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -79,8 +80,13 @@
                             </div>
                         </div>
                         <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                <button disabled id="message-submit" type="submit" class="btn btn-primary">share
+                            <div class="btn-group well">
+                                <ul class="list-inline">
+                                    <li><a href="">
+                                    <li><a href=""><i class="fas fa-image"></i></a></li>
+                                    <li><a href=""><i class="fas fa-map-marker-alt"></i></a></li>
+                                </ul>
+                                <button disabled id="message-submit pull-right" type="submit" class="btn btn-primary">share
                                 </button>
                             </div>
                         </div>
@@ -89,8 +95,8 @@
             </div>
             <!--End of message posting form-->
             <div class="posts-section" id="message-posts">
-                <div id="message-loading"   class="row justify-content-center" >
-                    <img  src="img/loading.gif" width="80px">
+                <div id="message-loading" class="row justify-content-center">
+                    <img src="img/loading.gif" width="80px">
                 </div>
             </div>
             <!-- Posts snippets will be loaded if there are any posts. -->

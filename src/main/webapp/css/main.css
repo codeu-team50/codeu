@@ -121,3 +121,17 @@ input[type="file"] {
 .post-img{
   width: 100%;
 }
+
+
+
+
+
+.well i {
+    font-size:20px;
+    color:#c0c0c0;
+}
+
+.well > .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus  {
+    background-color:#3B5999;
+    color:#fffffe;
+}

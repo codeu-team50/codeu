@@ -319,6 +319,8 @@ public class MessageServlet extends HttpServlet {
             message.setImageLabels(str_imageLabels);
             datastore.storeMessage(message);
         } else {
+
+
             datastore.storeMessage(message);
         }
 
