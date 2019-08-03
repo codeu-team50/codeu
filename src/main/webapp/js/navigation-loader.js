@@ -36,7 +36,15 @@ function addLoginOrLogoutLinkToNavigation() {
 
                 navigationElement.innerHTML+=
                     createLink('/logout', 'Logout');
+                var url = window.location.href;     // Returns full URL (https://example.com/path/example.html) #0c233b
+                var loc = new URL(url);
+                if (loc.pathname=='/find-your-travel-place.html'){
+                    var save_place_btn = document.getElementById('save-place-btn');
+                    save_place_btn.style.display ='';
+                }
             } else {
+
+
                 navigationElement.innerHTML+=
                     createLink('/login', 'Login');
             }
@@ -68,10 +76,6 @@ function loadNavigation() {
 }
 
 function loadContent() {
-    var url = window.location.href;     // Returns full URL (https://example.com/path/example.html) #0c233b
-    var origin = window.location.origin;
-    var path = url.replace(origin);
-
     const navigationbar = document.getElementById('navigation-bar');
     const content = ` <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:rgba(0, 23, 70, 0.8);">
         <div class="container">
